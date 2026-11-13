@@ -1,0 +1,92 @@
+{
+  "name": "lacy",
+  "publisher": "Architexts",
+  "displayName": "LACY",
+  "description": "Expert-guided, LLM-assisted code tours for unfamiliar codebases.",
+  "version": "2.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zbegum/lacy.git"
+  },
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:myViewId"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "myExtensionSidebar",
+          "title": "LACY",
+          "icon": "resources/lacy-activity.png"
+        }
+      ]
+    },
+    "views": {
+      "myExtensionSidebar": [
+        {
+          "type": "webview",
+          "id": "myViewId",
+          "name": " "
+        }
+      ]
+    },
+    "configuration": {
+      "title": "LACY",
+      "properties": {
+        "lacy.serverUrl": {
+          "type": "string",
+          "default": "http://localhost:4000",
+          "markdownDescription": "Base URL of the Lacy server your team runs, which also serves the expert dashboard. You can also set this on the sign-in screen."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "lacy.setServerUrl",
+        "title": "LACY: Set Server URL"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "node --test",
+    "test:vscode": "vscode-test"
+  },
+  "files": [
+    "out/**",
+    "node_modules/node-record-lpcm16/**",
+    "src/sidebar-panel/**",
+    "resources/**",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "devDependencies": {
+    "@types/mocha": "^10.0.9",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.95.0",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.13.0",
+    "jsdom": "^27.0.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "node-record-lpcm16": "^1.0.1"
+  },
+  "license": "MIT"
+}

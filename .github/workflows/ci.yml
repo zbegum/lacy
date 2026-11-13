@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install the extension's dependencies
+        run: npm ci
+      - name: Install the server's dependencies
+        run: npm ci
+        working-directory: server
+      - name: Install the dashboard's dependencies
+        run: npm ci
+        working-directory: dashboard
+
+      - name: Build the dashboard
+        run: npm run build
+        working-directory: dashboard
+
+      # Compiles the extension, lints, then runs the server and webview suites.
+      - name: Test
+        run: npm test
+
+      - name: Package the extension
+        run: npx --yes @vscode/vsce package --out lacy.vsix
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lacy-vsix
+          path: lacy.vsix
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the server image
+        run: docker build -t lacy-server:ci .
+      - name: Check it starts and answers
+        run: |
+          docker run -d --name lacy-ci -p 4000:4000 -e GEMINI_API_KEY=ci lacy-server:ci
+          for i in $(seq 1 30); do
+            curl -fs http://localhost:4000/api/health && break
+            sleep 2
+          done
+          curl -fs http://localhost:4000/api/health
+          docker rm -f lacy-ci

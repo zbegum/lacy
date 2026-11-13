@@ -1,0 +1,938 @@
+/* Import Google Fonts for a more modern look */
+@import url('https://fonts.googleapis.com/css2?family=Aldrich&display=swap');
+
+
+/* Body Styling */
+body {
+  background-color: #05031a;
+  font-family: var(--lacy-font);  /* Use only Poppins (sans-serif) */
+  margin: 0;
+  padding: 0;
+  color: white;
+  line-height: 1.6;
+}
+
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(135deg, var(--lacy-accent), #5C4F9D); /* Gradient background */
+  padding: 1.25rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow for a floating effect */
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--lacy-space-3);
+  text-decoration: none;
+}
+
+.navbar-title {
+  font-family: var(--lacy-font-display);
+  font-size: 3rem;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  margin-bottom: -12px; 
+}
+
+.navbar-logo {
+  height: 45px;
+  object-fit: contain;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-family: var(--lacy-font); /* Sans-serif font for navigation */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.navbar-link:hover {
+  background-color: #3a33a1;
+  transform: scale(1.05); /* Subtle scale on hover */
+}
+
+/* === Tab Bar Styling === */
+.tab-bar {
+  display: flex;
+  background-color: #272362;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab {
+  background-color: #2A2A40;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  margin-right: 1.25rem;
+  border-radius: 8px 8px 0 0;
+  font-family: var(--lacy-font);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.tab:hover {
+  background-color: #3b3b5c;
+  transform: scale(1.05); /* Scale up effect on hover */
+}
+
+.active-tab {
+  font-weight: bold;
+  border-bottom: 3px solid white;
+}
+
+/* === Tour List (MyTours) Section === */
+.learners-container {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* === Table Styling === */
+.learners-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #05031a;
+  color: white;
+  font-family: var(--lacy-font);
+  border-radius: 8px;
+  overflow: hidden;  /* Rounded corners for the table */
+}
+
+.learners-table th,
+.learners-table td {
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--lacy-border-subtle);
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.learners-table thead {
+  background-color: var(--lacy-border-subtle);
+  color: white;
+  font-weight: 600;
+}
+
+.learners-table tbody tr:hover {
+  background-color: #5D67FF;
+  color: white;
+  transform: scale(1.02); /* Smooth hover scale effect */
+  transition: transform 0.2s ease;
+}
+
+.learners-table tbody tr {
+  transition: transform 0.2s ease; /* Smooth transition for hover */
+}
+
+.learners-table td {
+  font-size: var(--lacy-text-md);
+  color: var(--lacy-text-muted);
+}
+
+.learners-table th {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* === Pie Chart Container Styling === */
+.pie-chart-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--lacy-space-6);
+  margin-top: var(--lacy-space-6);
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.pie-chart-item {
+  flex: 1 1 30%; /* Allow pie charts to take up 30% width */
+  min-width: 250px; /* Ensure a minimum size for smaller screens */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2A2A40;
+  border-radius: 8px;
+  padding: var(--lacy-space-5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pie-chart-title {
+  font-size: var(--lacy-text-lg);
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  margin-bottom: var(--lacy-space-4);
+}
+
+.pie-chart {
+  width: 100%;
+  height: 200px; /* Fixed height for consistency */
+  border-radius: 8px;
+  background-color: #1E1B2C; /* Dark background for pie chart container */
+}
+
+/* Add spacing for a more modern and breathable layout */
+.learners-container,
+.navbar-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tab-bar {
+    flex-direction: column;
+    padding: var(--lacy-space-4);
+  }
+
+  .tab {
+    margin-right: 0;
+    margin-bottom: var(--lacy-space-4);
+  }
+
+
+  .learners-table th,
+  .learners-table td {
+    padding: var(--lacy-space-2);
+  }
+
+  .pie-chart-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pie-chart-item {
+    width: 100%; /* Full width for mobile */
+    margin-bottom: var(--lacy-space-6);
+  }
+}
+.search-input {
+  margin: 1rem 0;
+  padding: 0.6rem 1rem;
+  width: 300px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: var(--lacy-text-md);
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--lacy-space-5);
+  gap: var(--lacy-space-4);
+  font-size: var(--lacy-text-md);
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.pagination button:disabled {
+  background-color: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.search-input {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  width: 250px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: var(--lacy-text-md);
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--lacy-space-5);
+  gap: var(--lacy-space-4);
+  font-size: var(--lacy-text-md);
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.pagination button:disabled {
+  background-color: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  margin-bottom: var(--lacy-space-4);
+}
+
+/* Body Styling */
+body {
+  background-color: #05031a;
+  font-family: var(--lacy-font);
+  margin: 0;
+  padding: 0;
+  color: white;
+  line-height: 1.6;
+}
+
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(135deg, var(--lacy-accent), #5C4F9D);
+  padding: 1.25rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--lacy-space-3);
+  text-decoration: none;
+}
+
+
+.navbar-logo {
+  height: 45px;
+  object-fit: contain;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-family: var(--lacy-font);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-link:hover {
+  background-color: #3a33a1;
+  transform: scale(1.05);
+}
+
+/* === Tab Bar Styling === */
+.tab-bar {
+  display: flex;
+  background-color: #272362;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab {
+  background-color: #2A2A40;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  margin-right: 1.25rem;
+  border-radius: 8px 8px 0 0;
+  font-family: var(--lacy-font);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.tab:hover {
+  background-color: #3b3b5c;
+  transform: scale(1.05);
+}
+
+.active-tab {
+  font-weight: bold;
+  background-color: #5c4f9d; /* Active tab background color */
+  color: white;
+  transform: scale(1.05);
+}
+
+.active-tab:hover {
+  background-color: var(--lacy-accent); /* Darker shade when hovering over active tab */
+}
+
+/* === Tour List (MyTours) Section === */
+.learners-container {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* === Pie Chart Container Styling === */
+.pie-chart-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: var(--lacy-space-6);
+  margin-top: var(--lacy-space-6);
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.pie-chart-item {
+  flex: 1 1 30%;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2A2A40;
+  border-radius: 8px;
+  padding: var(--lacy-space-5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pie-chart-title {
+  font-size: var(--lacy-text-lg);
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  margin-bottom: var(--lacy-space-4);
+}
+
+.pie-chart {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  background-color: #1E1B2C;
+}
+
+/* Body Styling */
+body {
+  background-color: #05031a;
+  font-family: var(--lacy-font);  /* Modern sans-serif font */
+  margin: 0;
+  padding: 0;
+  color: white;
+  line-height: 1.6;
+}
+
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(135deg, var(--lacy-accent), #5C4F9D); /* Gradient background */
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow for floating effect */
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--lacy-space-3);
+  text-decoration: none;
+}
+
+.navbar-logo {
+  height: 45px;
+  object-fit: contain;
+}
+
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-family: var(--lacy-font); /* Font for the links */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-link:hover {
+  background-color: #3a33a1;
+  transform: scale(1.05); /* Subtle scale on hover */
+}
+
+/* === Tab Bar Styling === */
+.tab-bar {
+  display: flex;
+  background-color: #272362;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab {
+  background-color: #2A2A40;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  margin-right: 1.25rem;
+  border-radius: 8px 8px 0 0;
+  font-family: var(--lacy-font);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.tab:hover {
+  background-color: #3b3b5c;
+  transform: scale(1.05); /* Scale up effect on hover */
+}
+
+.active-tab {
+  font-weight: bold;
+  background-color: #5c4f9d; /* Active tab background color */
+  color: white;
+  transform: scale(1.05);
+}
+
+.active-tab:hover {
+  background-color: var(--lacy-accent); /* Darker shade when hovering over active tab */
+}
+
+/* === Tour List (MyTours) Section === */
+.learners-container {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.learners-title {
+  font-size: 2.5rem;
+  font-family: var(--lacy-font);
+  font-weight: 700;
+  margin-bottom: var(--lacy-space-6);
+  color: #ffffff;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* === Table Styling === */
+.learners-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #05031a;
+  color: white;
+  font-family: var(--lacy-font);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.learners-table th,
+.learners-table td {
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--lacy-border-subtle);
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.learners-table thead {
+  background-color: var(--lacy-border-subtle);
+  color: white;
+  font-weight: 600;
+}
+
+.learners-table tbody tr:hover {
+  background-color: #5D67FF;
+  color: white;
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}
+
+/* === Tab Bar Styling === */
+.tab-bar {
+  display: flex;
+  background-color: #272362;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab {
+  background-color: #2A2A40;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  margin-right: 1.25rem;
+  border-radius: 8px 8px 0 0;
+  font-family: var(--lacy-font);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.tab:hover {
+  background-color: #3b3b5c;
+  transform: scale(1.05);
+}
+
+.active-tab {
+  font-weight: bold;
+  background-color: #5c4f9d; /* Active tab background color */
+  color: white;
+  transform: scale(1.05);
+}
+
+.active-tab:hover {
+  background-color: var(--lacy-accent); /* Darker shade when hovering over active tab */
+}
+
+/* === Star Rating === */
+.my-star-rating {
+  display: inline-block;
+  color: #facc15; /* Amber for filled stars */
+  font-size: var(--lacy-text-xl);
+  letter-spacing: 1px;
+}
+
+.star {
+  opacity: 0.3;
+}
+
+.star.filled {
+  opacity: 1;
+}
+
+/* === Status Tags === */
+.status-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: var(--lacy-text-sm);
+  font-weight: 600;
+  text-transform: capitalize;
+  color: white;
+}
+
+.status-tag.completed {
+  background-color: var(--lacy-success);
+}
+
+.status-tag.in-progress {
+  background-color: #f59e0b;
+}
+
+.status-tag.unknown {
+  background-color: #6b7280;
+}
+
+/* Profile Section Styling */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: var(--lacy-space-6);
+}
+
+.profile-name-item {
+  font-size: 4rem;
+  font-family: var(--lacy-font-display);
+  color: #ffffff;
+  text-align: left;
+}
+
+.profile-team-item {
+  font-size: var(--lacy-text-2xl);
+  font-family: var(--lacy-font-display);
+  color: var(--lacy-accent);
+  text-align: left;
+}
+
+/* Search Input - Right Aligned */
+.search-input {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  width: 250px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: var(--lacy-text-md);
+  outline: none;
+  float: right;  /* Right-align the search bar */
+  transition: border 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Table Styling */
+.learners-table th,
+.learners-table td {
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--lacy-border-subtle);
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.learners-table thead {
+  background-color: var(--lacy-border-subtle);
+  color: white;
+  font-weight: 600;
+}
+
+.learners-table tbody tr:hover {
+  background-color: #5D67FF;
+  color: white;
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}
+
+/* Pagination Styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--lacy-space-5);
+  gap: var(--lacy-space-4);
+  font-size: var(--lacy-text-md);
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.pagination button:disabled {
+  background-color: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+/* Profile Section Styling */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: var(--lacy-space-6);
+}
+
+.profile-item {
+  font-size: var(--lacy-text-lg);
+  font-family: var(--lacy-font);
+  color: #ffffff;
+  text-align: left;
+}
+
+/* Search Input - Right Aligned */
+.search-input {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  width: 250px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: var(--lacy-text-md);
+  outline: none;
+  float: right;  /* Right-align the search bar */
+  transition: border 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Table Styling */
+.learners-table th,
+.learners-table td {
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--lacy-border-subtle);
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.learners-table thead {
+  background-color: var(--lacy-border-subtle);
+  color: white;
+  font-weight: 600;
+}
+
+.learners-table tbody tr:hover {
+  background-color: #5D67FF;
+  color: white;
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}
+
+/* Pagination Styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--lacy-space-5);
+  gap: var(--lacy-space-4);
+  font-size: var(--lacy-text-md);
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.pagination button:disabled {
+  background-color: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+.progress-bar-wrapper {
+  position: relative;
+  background-color: #1f2937;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background-color: var(--lacy-success);
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-bar-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: var(--lacy-text-xs);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sortable-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.sort-icon {
+  font-size: var(--lacy-text-sm);
+  opacity: 0.7;
+  line-height: 1;
+}
+
+.tag {
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: var(--lacy-text-sm);
+  font-weight: 500;
+  text-transform: capitalize;
+  display: inline-block;
+  white-space: nowrap;
+  color: #f3f4f6; /* light text for dark background */
+}
+
+/* Dark-themed soft backgrounds with decent contrast */
+.dept-frontend,
+.dept-frontend-team {
+  background-color: rgba(59, 130, 246, 0.25); /* soft blue */
+}
+
+.dept-backend,
+.dept-backend-team {
+  background-color: rgba(16, 185, 129, 0.25); /* soft green */
+}
+
+.dept-qa {
+  background-color: rgba(245, 158, 11, 0.25); /* soft amber */
+}
+
+.dept-devops {
+  background-color: rgba(99, 102, 241, 0.25); /* soft indigo */
+}
+
+.dept-analyst {
+  background-color: rgba(236, 72, 153, 0.25); /* soft pink */
+}
+
+.dept-unknown {
+  background-color: rgba(107, 114, 128, 0.25); /* gray fallback */
+}
+
+.centered-cell {
+  text-align: center!important; 
+  vertical-align: middle;
+}

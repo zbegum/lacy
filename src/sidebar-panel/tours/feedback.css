@@ -1,0 +1,244 @@
+/* ===========================
+   FEEDBACK CONTAINER
+   =========================== */
+   #feedback-container {
+    display: none;
+    padding: 1rem 1.2rem;
+    background-color: var(--lacy-surface-raised);
+    border: 1px solid var(--lacy-border);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    max-width: 600px;
+    margin: 2rem auto;
+    color: #ddd;
+    font-family: var(--lacy-font);
+    font-weight: 400;
+  }
+  
+  /* ===========================
+     FEEDBACK SECTIONS
+     =========================== */
+  .feedback-section {
+    margin: 1rem 0;
+    font-size: var(--lacy-text-sm);
+    line-height: 1.5;
+    color: var(--lacy-text);
+  }
+  
+/* ===========================
+   RATING STARS
+   =========================== */
+   .rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: var(--lacy-space-2);
+    margin: 0.8rem 0 1.2rem;
+    font-size: var(--lacy-text-lg);
+    cursor: pointer;
+  }
+  .rating-stars .star {
+    color: #666;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  .rating-stars .star:hover {
+    transform: scale(1.1);
+    color: gold;
+  }
+  .rating-stars .star.selected {
+    color: #fbbf24;   /* amber */
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+
+.submit-button,
+/* ===========================
+   FEEDBACK BUTTONS (Unified with tour buttons)
+   =========================== */
+   .submit-button,
+   .skip-button,
+   .return-button {
+     background-color: var(--lacy-surface-raised);
+     color: white;
+     font-size: var(--lacy-text-sm);
+     padding: 0.5rem 1.2rem;
+     border: 2px solid transparent;  /* no visible border by default */
+     border-radius: 8px;
+     cursor: pointer;
+     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+     font-family: var(--lacy-font);
+     font-weight: 400;
+   }
+   
+   .submit-button:hover,
+   .skip-button:hover,
+   .return-button:hover {
+     border-color: #48308f; /* purple border */
+     box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+   }
+   
+   .submit-button:active,
+   .skip-button:active,
+   .return-button:active {
+     transform: scale(0.96);
+   }
+   
+   /* Submit = green accent */
+   .submit-button {
+     border: 2px solid transparent;
+   }
+   .submit-button:hover {
+     border-color: var(--lacy-success); /* green accent */
+     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+   }   
+
+/* ===========================
+   FEEDBACK TEXTAREA
+   =========================== */
+   #feedback-text {
+    padding: 0.6rem;
+    border: 1px solid var(--lacy-border);
+    border-radius: 6px;
+    font-size: var(--lacy-text-sm);
+    font-family: var(--lacy-font);
+    color: #eaeaea;
+    background-color: var(--lacy-surface);
+    resize: vertical;
+    width: 100%;
+    margin-bottom: var(--lacy-space-4);
+  }
+  
+
+/* ===========================
+   FEEDBACK SUMMARY STYLE
+   =========================== */
+   #feedback-container h2 {
+    font-family: var(--lacy-font-display);
+    font-size: 1.3rem;
+    color: var(--lacy-accent-soft);
+    margin-bottom: var(--lacy-space-2);
+    text-align: center;
+  }
+  
+  #feedback-container p {
+    font-size: var(--lacy-text-sm);
+    color: var(--lacy-text-muted);
+    margin-bottom: 1.2rem;
+    text-align: center;
+  }
+  
+  /* Wrap each section like a card item */
+  .feedback-section,
+  .rating-section,
+  .time-spent-section {
+    margin: 0.8rem 0;
+    padding: var(--lacy-space-4);
+    border: 1px solid var(--lacy-border);
+    border-radius: 8px;
+    background: #222;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .feedback-section:hover,
+  .rating-section:hover,
+  .time-spent-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+  }
+  
+  .feedback-section label,
+  .rating-section label,
+  .time-spent-section label {
+    font-size: var(--lacy-text-sm);
+    color: #bbb;
+    margin-bottom: 0.4rem;
+    display: block;
+    font-weight: 500;
+  }
+  
+  /* Submitted feedback text */
+  .feedback-section p {
+    font-size: var(--lacy-text-md);
+    color: var(--lacy-text-strong);
+    margin: 0;
+    line-height: 1.5;
+  }
+  
+  /* Rating stars */
+  .rating-section p {
+    font-size: var(--lacy-text-lg);
+    letter-spacing: 2px;
+    color: #fbbf24;
+    text-align: center;
+    margin: 0;
+  }
+  
+  /* Time spent */
+  .time-spent-section p {
+    font-size: var(--lacy-text-md);
+    color: var(--lacy-success);
+    margin: 0;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  /* Return button centered */
+  #feedback-container .return-button {
+    display: block;
+    margin: 1.5rem auto 0 auto;
+  }
+  #feedback-content {
+    display: none;
+}
+
+#feedback-content.active {
+    display: block !important;
+}
+
+#feedback-content.active #feedback-container {
+    display: block !important;
+}
+
+.feedback-actions {
+  display: flex;
+  flex-direction: row;      /* force horizontal */
+  justify-content: space-between; /* left + right alignment */
+  align-items: center;
+  width: 100%;              /* span full container */
+  margin-top: var(--lacy-space-4);
+}
+
+
+.skip-button {
+  background-color: var(--lacy-surface-raised);
+  color: white;
+  font-size: var(--lacy-text-sm);
+  padding: 0.5rem 1.2rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skip-button:hover {
+  border-color: #48308f;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+}
+
+.fb-button {
+  background-color: var(--lacy-surface-raised);
+  color: white;
+  font-size: var(--lacy-text-sm);
+  padding: 0.5rem 1.2rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fb-button:hover {
+  border-color: var(--lacy-success); /* green accent */
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}

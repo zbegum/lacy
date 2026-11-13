@@ -1,0 +1,1284 @@
+/*
+ * Makes the panel read as part of VS Code rather than a page dropped into it.
+ *
+ * Loaded after every other stylesheet, so it only has to state what changes:
+ * the editor's own font and size, headings sized for a sidebar, and one set of
+ * buttons (primary, secondary, danger, icon) instead of a style per screen.
+ * Lacy's own type stays: Aldrich for headings and the wordmark, Poppins for
+ * everything else, both sized for a sidebar.
+ */
+
+/* ---- Base: Lacy's fonts, at the editor's size ---------------------------- */
+
+/* Every rem in the older stylesheets is measured against this, so they all
+   shrink together from a 16px base to VS Code's 13px. */
+html { font-size: var(--vscode-font-size, 13px); }
+
+:root {
+    --lacy-radius: 4px;
+    --lacy-radius-sm: 3px;
+    --lacy-control-height: 26px;
+}
+
+body {
+    font-family: var(--lacy-font);
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding: 0 var(--lacy-space-3);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+body *, body *::before, body *::after { box-sizing: border-box; }
+body * { max-width: 100%; }
+body p, body li, body .file-name { overflow-wrap: anywhere; }
+body input, body select, body textarea, body button { font-family: inherit; }
+
+/* ---- Headings: sized for a 300px-wide sidebar ----------------------------- */
+
+/* !important because some headings carry inline font styles from the JS.
+   Titles and section labels use Aldrich; subtitles and h4 stay in Poppins. */
+body h1, body h2, body h3, body .section-heading, body .tour-title {
+    font-family: var(--lacy-font-display) !important;
+}
+body h4, body .tour-subtitle { font-family: var(--lacy-font) !important; }
+body h1, body h2, body h3, body h4, body .section-heading, body .tour-title, body .tour-subtitle {
+    letter-spacing: 0.02em !important;
+    line-height: 1.3;
+    margin: 0 0 var(--lacy-space-2) !important;
+    text-align: left;
+}
+body h1, body .tour-title { font-size: 17px !important; font-weight: 400 !important; color: var(--lacy-text-strong); }
+body h2 { font-size: 14px !important; font-weight: 400 !important; }
+body .tour-subtitle { color: var(--lacy-text-muted) !important; font-weight: 400 !important; font-size: 12px !important; }
+body h3, body .section-heading {
+    font-size: 12px !important; font-weight: 400 !important; text-transform: uppercase;
+    letter-spacing: 0.08em !important; color: var(--lacy-accent-soft) !important;
+    margin-top: var(--lacy-space-4) !important;
+}
+body h4 { font-size: 12px !important; font-weight: 600 !important; }
+body p { margin: 0 0 var(--lacy-space-2); }
+body .tour-description { font-size: 12px; color: var(--lacy-text-muted); }
+
+body .landing-brand { font-family: var(--lacy-font-display); font-size: 20px; letter-spacing: 0.14em; }
+body .landing-subtitle { font-size: 12px; color: var(--lacy-text-muted); }
+body .landing-logo { width: 56px; height: auto; }
+
+/* ---- Tabs: one row, evenly spaced, labels centred on their underline ---- */
+
+/* No display here: the scripts show and hide the bar (and the Audio tab) by
+   setting display inline, so the tabs are laid out with line-height instead. */
+body .tabs {
+    align-items: stretch;
+    height: 34px;
+    background: transparent !important;
+    border-bottom: 1px solid var(--lacy-border);
+    margin: 0 calc(-1 * var(--lacy-space-3)) var(--lacy-space-3) !important;
+    padding: 0 var(--lacy-space-2);
+    gap: 2px;
+}
+body .tab {
+    white-space: nowrap;
+    line-height: 32px;
+    text-align: center;
+    padding: 0 8px !important;
+    margin: 0 !important;
+    font-family: var(--lacy-font);
+    font-size: 11px;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--lacy-text-muted) !important;
+    border-bottom: 2px solid transparent !important;
+    margin-bottom: -1px !important;
+    background: transparent !important;
+}
+body .tab:hover { color: var(--lacy-text) !important; }
+body .tab.active {
+    color: var(--lacy-text-strong) !important;
+    border-bottom-color: var(--lacy-accent) !important;
+}
+/* Sign out is an action, not a page: pushed right, quieter, no underline. */
+body #logout-tab {
+    margin-left: auto !important;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500 !important;
+    border-bottom-color: transparent !important;
+}
+
+/* ---- Cards: a hairline, not a slab -------------------------------------- */
+
+body .tour-card, body .card, body .tour-item, body .tour-list-item, body .modal,
+body [class$="-card"]:not(button), body [class*="-card "]:not(button) {
+    background: var(--vscode-editorWidget-background, var(--lacy-surface));
+    border: 1px solid var(--lacy-border-subtle);
+    border-radius: var(--lacy-radius);
+    box-shadow: none !important;
+    padding: var(--lacy-space-3);
+}
+
+/* ---- Form controls: VS Code's inputs ------------------------------------ */
+
+body input[type="text"], body input[type="email"], body input[type="password"],
+body input[type="number"], body input[type="search"], body select, body textarea,
+body .form-input {
+    width: 100%;
+    min-height: var(--lacy-control-height);
+    padding: 4px 8px;
+    font-size: 13px;
+    color: var(--vscode-input-foreground, var(--lacy-text));
+    background: var(--vscode-input-background, var(--lacy-surface-raised));
+    border: 1px solid var(--vscode-input-border, var(--lacy-border-subtle));
+    border-radius: var(--lacy-radius-sm);
+    box-shadow: none;
+}
+body textarea { min-height: 64px; resize: vertical; line-height: 1.45; }
+body input:focus, body select:focus, body textarea:focus {
+    outline: 1px solid var(--vscode-focusBorder, var(--lacy-accent));
+    outline-offset: -1px;
+    border-color: transparent;
+}
+body label { font-size: 12px; font-weight: 500; color: var(--lacy-text); margin: var(--lacy-space-2) 0 var(--lacy-space-1); display: block; }
+body input[type="checkbox"], body input[type="radio"] { width: auto; min-height: 0; accent-color: var(--lacy-accent); }
+
+/* ---- Buttons ------------------------------------------------------------ */
+
+/* Primary: the one action a screen is for. */
+body .tour-submit-button, body .create-tour-button, body .login-button,
+body .submit-button, body .add-button, body .add-step-button, body .save-button-edit,
+body .fb-button, body .modal-button, body #confirm-leave {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: var(--lacy-control-height);
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--lacy-on-accent);
+    background: var(--lacy-accent);
+    border: 1px solid transparent;
+    border-radius: var(--lacy-radius-sm);
+    box-shadow: none !important;
+    transform: none !important;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+}
+body .tour-submit-button:hover, body .create-tour-button:hover, body .login-button:hover,
+body .submit-button:hover, body .add-button:hover, body .add-step-button:hover,
+body .save-button-edit:hover, body .fb-button:hover, body .modal-button:hover, body #confirm-leave:hover {
+    background: color-mix(in srgb, var(--lacy-accent) 85%, white);
+}
+
+/* Full-width where a form ends in one action, as in VS Code's own views. */
+body .login-button, body .create-tour-button, body form > .tour-submit-button { width: 100%; }
+
+/* Secondary: back, cancel, skip. */
+body .tour-cancel-button, body .return-button, body .back-button, body .skip-button,
+body .discard-button-edit, body .close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--lacy-control-height);
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--vscode-button-secondaryForeground, var(--lacy-text));
+    background: var(--vscode-button-secondaryBackground, rgba(255, 255, 255, 0.08));
+    border: 1px solid transparent;
+    border-radius: var(--lacy-radius-sm);
+    box-shadow: none !important;
+    transform: none !important;
+    cursor: pointer;
+}
+body .tour-cancel-button:hover, body .return-button:hover, body .back-button:hover,
+body .skip-button:hover, body .discard-button-edit:hover, body .close-button:hover {
+    background: var(--vscode-button-secondaryHoverBackground, rgba(255, 255, 255, 0.14));
+}
+
+/* Danger: only red where something is deleted. */
+body .delete-button, body .delete-question-button, body .question-delete-button-edit {
+    min-height: var(--lacy-control-height);
+    padding: 4px 10px;
+    font-size: 12px;
+    color: var(--lacy-danger);
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--lacy-danger) 45%, transparent);
+    border-radius: var(--lacy-radius-sm);
+    box-shadow: none !important;
+    cursor: pointer;
+}
+body .delete-button:hover, body .delete-question-button:hover, body .question-delete-button-edit:hover {
+    background: color-mix(in srgb, var(--lacy-danger) 14%, transparent);
+}
+
+/* Icon buttons inside lists: quiet until hovered. */
+body .details-button, body .edit-button, body .info-toggle-button, body .podcast-button,
+body .step-edit-button {
+    min-width: 22px;
+    min-height: 22px;
+    padding: 2px 4px;
+    font-size: 12px;
+    line-height: 1;
+    color: var(--lacy-text-muted);
+    background: transparent;
+    border: none;
+    border-radius: var(--lacy-radius-sm);
+    box-shadow: none !important;
+    cursor: pointer;
+}
+body .details-button:hover, body .edit-button:hover, body .info-toggle-button:hover,
+body .podcast-button:hover, body .step-edit-button:hover {
+    color: var(--lacy-text);
+    background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.1));
+}
+
+body button:focus-visible { outline: 1px solid var(--vscode-focusBorder, var(--lacy-accent)); outline-offset: 2px; }
+body button:disabled { opacity: 0.5; cursor: default; }
+
+body .button-container, body .tour-form-button-container, body .modal-buttons, body .recording-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--lacy-space-2);
+    margin-top: var(--lacy-space-3);
+}
+
+/* ---- File picker: like the Explorer ------------------------------------- */
+
+body .file-explorer {
+    font-size: 13px;
+    border: 1px solid var(--lacy-border-subtle);
+    border-radius: var(--lacy-radius-sm);
+    padding: var(--lacy-space-1) 0;
+    max-height: 280px;
+    overflow-y: auto;
+}
+body .file-explorer ul { padding-left: 12px; margin: 0; list-style: none; }
+body .file-explorer > ul { padding-left: 4px; }
+body .file-explorer li { margin: 0; }
+body .file-explorer .folder, body .file-explorer .file-container {
+    display: flex;
+    align-items: center;
+    min-height: 22px;
+    padding: 0 6px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+body .file-explorer .folder:hover, body .file-explorer .file-container:hover {
+    background: var(--vscode-list-hoverBackground, rgba(255, 255, 255, 0.06));
+}
+body .file-explorer .file-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+body .file-explorer li.selected > .file-container {
+    background: color-mix(in srgb, var(--lacy-accent) 28%, transparent);
+    color: var(--lacy-text-strong);
+}
+
+/* ---- Overlays and messages ---------------------------------------------- */
+
+/* "Creating your tour…" and the other waits: Lacy floating above a pulsing
+   line in the display face, as it was, sized for the sidebar. */
+body .loading-overlay { background: color-mix(in srgb, var(--lacy-bg) 94%, transparent) !important; }
+body .loading-spinner, body #loading-overlay .loading-box p {
+    display: flex; flex-direction: column; align-items: center; gap: var(--lacy-space-3);
+    font-family: var(--lacy-font-display) !important;
+    font-size: 17px !important; letter-spacing: 0.06em;
+    color: var(--lacy-accent-soft) !important;
+    text-align: center;
+    animation: lacy-pulse 1.6s ease-in-out infinite;
+}
+body .loading-spinner::before {
+    content: '';
+    width: 64px; height: 69px;
+    background: url('registration/lacy_logo.png') center / contain no-repeat;
+    animation: lacy-float 2.4s ease-in-out infinite;
+}
+@keyframes lacy-pulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+@keyframes lacy-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@media (prefers-reduced-motion: reduce) {
+    body .loading-spinner, body .loading-spinner::before, body #loading-overlay .loading-box p { animation: none; }
+}
+body .error-message { font-size: 12px; }
+body .wrong-popup { font-family: var(--lacy-font); }
+
+/* ---- Layout: left-aligned like the rest of the sidebar ------------------- */
+
+body .tour-wrapper { text-align: left !important; max-width: none !important; }
+body #tour-ui-wrapper { display: block !important; }
+body .tour-description { font-size: 12px !important; color: var(--lacy-text-muted) !important; margin-bottom: var(--lacy-space-3) !important; }
+body .border-animated-container { margin-bottom: var(--lacy-space-3) !important; }
+body .border-animated-container::before, body .border-animated-container::after { display: none !important; }
+body .tour-list { color: var(--lacy-text-muted) !important; font-size: 12px; }
+
+/* ---- Forms: tighter rhythm between fields ------------------------------- */
+
+body .form-subtitle {
+    display: block;
+    margin: var(--lacy-space-3) 0 var(--lacy-space-1) !important;
+    font-family: var(--lacy-font) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: var(--lacy-text) !important;
+}
+body .form-section > *:first-child { margin-top: 0 !important; }
+body .description-text { font-size: 11px !important; color: var(--lacy-text-muted) !important; margin-top: var(--lacy-space-1) !important; }
+body .highlight-box {
+    margin-top: var(--lacy-space-4) !important;
+    padding: var(--lacy-space-2) var(--lacy-space-3) !important;
+    border: 1px solid var(--lacy-border-subtle) !important;
+    border-left: 2px solid var(--lacy-accent) !important;
+    border-radius: var(--lacy-radius-sm) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+body .toggle-label { font-size: 12px !important; font-weight: 500 !important; font-family: var(--lacy-font) !important; }
+
+/* ---- Confirmation dialog ------------------------------------------------ */
+
+body .overlay { background: rgba(0, 0, 0, 0.45) !important; padding: var(--lacy-space-4); }
+body .overlay .modal {
+    width: 100%;
+    max-width: 280px;
+    padding: var(--lacy-space-4) !important;
+    text-align: left !important;
+    background: var(--vscode-editorWidget-background, var(--lacy-surface)) !important;
+    border: 1px solid var(--lacy-border-subtle) !important;
+    border-radius: var(--lacy-radius) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+body .overlay .modal p { font-size: 13px; color: var(--lacy-text-strong); margin-bottom: var(--lacy-space-1); }
+body .overlay .modal-buttons { justify-content: flex-end; margin-top: var(--lacy-space-4); }
+
+/* ---- "New guided tour": a choice of three ways to make one -------------- */
+
+body .modal-overlay { padding: var(--lacy-space-4); background: rgba(0, 0, 0, 0.45) !important; }
+body .tour-method-modal {
+    width: 100%;
+    max-width: 300px;
+    padding: var(--lacy-space-4) !important;
+    text-align: left !important;
+    background: var(--vscode-editorWidget-background, var(--lacy-surface)) !important;
+    border: 1px solid var(--lacy-border-subtle) !important;
+    border-radius: var(--lacy-radius) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+body .tour-method-header { display: flex; align-items: center; justify-content: space-between; gap: var(--lacy-space-2); }
+body .tour-method-header h2 { margin: 0 !important; font-size: 15px !important; color: var(--lacy-text-strong); }
+body .tour-method-close {
+    width: 22px; height: 22px; padding: 0; line-height: 1;
+    font-size: 16px; color: var(--lacy-text-muted);
+    background: transparent; border: none; border-radius: var(--lacy-radius-sm); cursor: pointer;
+}
+body .tour-method-close:hover { color: var(--lacy-text); background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.1)); }
+body .tour-method-options { display: flex; flex-direction: column; margin-top: var(--lacy-space-3); }
+body .tour-method-button { width: 100%; }
+body .tour-method-hint {
+    margin: var(--lacy-space-1) 0 var(--lacy-space-3) !important;
+    font-size: 11.5px; color: var(--lacy-text-muted); text-align: center;
+}
+body .tour-method-hint:last-child { margin-bottom: 0 !important; }
+
+/* My Tours: "New Guided Tour" (primary) and "See Dashboard" (secondary) side by
+   side, sharing the width evenly instead of wrapping mid-word. */
+body .tour-header:has(#new-guided-tour-my-tours) {
+    display: flex; gap: var(--lacy-space-2); margin-bottom: var(--lacy-space-3) !important;
+}
+body .tour-header:has(#new-guided-tour-my-tours) > .border-animated-container { flex: 1 1 0; margin: 0 !important; }
+body #new-guided-tour-my-tours, body #dashboard-tab { width: 100%; white-space: nowrap; }
+/* The animated gradient frame behind these buttons reads as a glow; drop it. */
+body .border-animated-container {
+    display: block !important; padding: 0 !important; background: none !important;
+    animation: none !important; border-radius: 0 !important; min-width: 0;
+}
+
+/* Voice tours are started from "New guided tour", so the Audio tab is not
+   shown in the bar. It stays in the page as the route to the recorder. */
+body #audio-tab { display: none !important; }
+
+/* ---- The three "new guided tour" forms: one shape ---------------------- */
+
+/* Same card for AI assisted (#guidedTourForm-container), Voice and Manual. */
+body #guidedTourForm-container, body #explorTourForm-container, body .tour-form-card {
+    margin: 0 !important;
+    padding: var(--lacy-space-4) !important;
+    max-width: none !important;
+    width: 100% !important;
+    text-align: left !important;
+    background: var(--vscode-editorWidget-background, var(--lacy-surface)) !important;
+    border: 1px solid var(--lacy-border-subtle) !important;
+    border-radius: var(--lacy-radius) !important;
+    box-shadow: none !important;
+}
+body .audio-recording-wrapper { display: block !important; padding: 0 !important; margin: 0 !important; background: none !important; }
+body .tour-header-bar { display: block !important; padding: 0 !important; margin: 0 !important; background: none !important; border: none !important; }
+
+/* Title, then one line saying which way the tour is being made. */
+body .tour-form-method { font-size: 12px !important; color: var(--lacy-text-muted) !important; margin: 0 0 var(--lacy-space-2) !important; }
+body .tour-form-method strong { color: var(--lacy-accent-soft); font-weight: 600; }
+
+/* Sections: a hairline above each, the same spacing everywhere. */
+body .form-section {
+    margin: var(--lacy-space-3) 0 0 !important;
+    padding: var(--lacy-space-3) 0 0 !important;
+    border-top: 1px solid var(--lacy-border-subtle) !important;
+}
+body .form-section .section-heading { margin-top: 0 !important; }
+body .form-section br { display: none; }
+
+/* "Tour Steps" heading with its add button on the same line. */
+body .new-step-header { display: flex !important; align-items: center; justify-content: space-between; margin: 0 !important; }
+body .new-step-header .section-heading { margin: 0 !important; }
+body .add-step-button {
+    width: auto !important; height: auto !important; min-height: 22px;
+    padding: 2px 8px !important; font-size: 12px !important; border-radius: var(--lacy-radius-sm) !important;
+    color: var(--vscode-button-secondaryForeground, var(--lacy-text)) !important;
+    background: var(--vscode-button-secondaryBackground, rgba(255, 255, 255, 0.08)) !important;
+}
+body .add-step-button:hover { background: var(--vscode-button-secondaryHoverBackground, rgba(255, 255, 255, 0.14)) !important; }
+
+/* Footer: Back on the left of the main action, right-aligned, never wrapping. */
+body .tour-form-actions, body .tour-form-button-container, body .newTourContainer .button-container {
+    display: flex !important; flex-wrap: nowrap !important; justify-content: flex-end !important;
+    gap: var(--lacy-space-2) !important;
+    margin: var(--lacy-space-4) 0 0 !important;
+    padding: var(--lacy-space-3) 0 0 !important;
+    border-top: 1px solid var(--lacy-border-subtle);
+}
+body .tour-form-actions button, body .tour-form-button-container button { width: auto !important; white-space: nowrap; }
+
+/* Wrappers that each drew their own panel inside the card, or pushed it in. */
+body .guidedTourForm-wrapper, body .explorationTourForm-wrapper, body #tour-creation-container, body #explor-tour-creation-container {
+    margin: 0 !important; padding: 0 !important; background: none !important;
+    border: none !important; box-shadow: none !important; max-width: none !important;
+}
+body #audio-container { padding: 0 !important; }
+
+/* Manual tours (and editing a tour) render into this list container, which
+   re-parents the header, so the card goes on the container itself. */
+body #tour-steps-list-container {
+    margin: 0 !important;
+    padding: var(--lacy-space-4) !important;
+    font-family: var(--lacy-font) !important;
+    background: var(--vscode-editorWidget-background, var(--lacy-surface)) !important;
+    border: 1px solid var(--lacy-border-subtle) !important;
+    border-radius: var(--lacy-radius) !important;
+    box-shadow: none !important;
+}
+body #tour-steps-list-container .tour-form-card { padding: 0 !important; border: none !important; background: none !important; }
+body #tour-steps-list-container input::placeholder, body #tour-steps-list-container p { font-family: var(--lacy-font); }
+
+/* Quiz and podcast toggles: two identical rows, not one boxed and one bare. */
+body .form-section .highlight-box {
+    margin: 0 !important; padding: 0 !important;
+    border: none !important; background: none !important;
+}
+body .form-section .toggle-row {
+    display: flex !important; align-items: center; justify-content: space-between; gap: var(--lacy-space-3);
+    margin: 0 !important; padding: var(--lacy-space-2) 0 !important;
+}
+body .form-section .toggle-label, body .form-section .toggle-label strong {
+    margin: 0 !important; font-size: 12px !important; font-weight: 500 !important; color: var(--lacy-text) !important;
+}
+
+/* ---- Taking a tour (learner) ------------------------------------------- */
+
+body .tour-step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--lacy-space-2); }
+body .tour-step-count {
+    font-family: var(--lacy-font-display); font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--lacy-accent-soft);
+}
+body .tour-step-top .exit {
+    position: static !important; width: 22px; height: 22px; padding: 0; line-height: 1;
+    font-size: 16px; color: var(--lacy-text-muted); background: transparent; border: none;
+    border-radius: var(--lacy-radius-sm); cursor: pointer;
+}
+body .tour-step-top .exit:hover { color: var(--lacy-text); background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.1)); }
+body .progress-wrapper { margin: 0 0 var(--lacy-space-3) !important; }
+body .progress-bar-outer { height: 3px !important; border-radius: 2px !important; background: var(--lacy-border-subtle) !important; }
+body .progress-bar-inner { height: 100% !important; border-radius: 2px !important; background: var(--lacy-accent) !important; }
+body .tour-step-lines { font-size: 11.5px; color: var(--lacy-text-muted); margin-bottom: var(--lacy-space-3) !important; }
+body .tour-step-markdown { font-size: 13px; line-height: 1.6; color: var(--lacy-text); }
+body .tour-nav {
+    display: flex !important; justify-content: space-between; gap: var(--lacy-space-2);
+    margin-top: var(--lacy-space-4) !important; padding-top: var(--lacy-space-3);
+    border-top: 1px solid var(--lacy-border-subtle);
+}
+/* (questions list: see "Ask about a step" below) */
+
+/* Step navigation: the older sheet styles these by id, so match by id too. */
+body .tour-nav #back-button, body .tour-nav #next-button, body .tour-nav #complete-button {
+    min-height: var(--lacy-control-height) !important; padding: 4px 14px !important;
+    font-size: 13px !important; font-weight: 500 !important;
+    border: 1px solid transparent !important; border-radius: var(--lacy-radius-sm) !important;
+    box-shadow: none !important; transform: none !important; margin: 0 !important;
+}
+body .tour-nav #next-button, body .tour-nav #complete-button { color: var(--lacy-on-accent) !important; background: var(--lacy-accent) !important; }
+body .tour-nav #next-button:hover, body .tour-nav #complete-button:hover { background: color-mix(in srgb, var(--lacy-accent) 85%, white) !important; }
+body .tour-nav #back-button {
+    color: var(--vscode-button-secondaryForeground, var(--lacy-text)) !important;
+    background: var(--vscode-button-secondaryBackground, rgba(255, 255, 255, 0.08)) !important;
+}
+body .tour-nav #back-button:hover { background: var(--vscode-button-secondaryHoverBackground, rgba(255, 255, 255, 0.14)) !important; }
+
+/* ---- Quiz ---------------------------------------------------------------- */
+
+body .quiz-title {
+    font-family: var(--lacy-font-display) !important; font-size: 17px !important; font-weight: 400 !important;
+    text-align: left !important; color: var(--lacy-text-strong) !important;
+    text-transform: none !important; letter-spacing: 0.02em !important; margin: 0 0 var(--lacy-space-3) !important;
+}
+body .quiz-question {
+    margin: 0 0 var(--lacy-space-2) !important; padding: var(--lacy-space-3) !important;
+    background: var(--vscode-editorWidget-background, var(--lacy-surface)) !important;
+    border: 1px solid var(--lacy-border-subtle) !important; border-radius: var(--lacy-radius) !important;
+    box-shadow: none !important;
+}
+/* A question is a sentence, not a section label. */
+body .quiz-question .question-text {
+    font-family: var(--lacy-font) !important; font-size: 13px !important; font-weight: 600 !important;
+    text-transform: none !important; letter-spacing: 0 !important;
+    color: var(--lacy-text-strong) !important; margin: 0 0 var(--lacy-space-1) !important;
+}
+body .quiz-question .question-score, body .quiz-question .multiple-answers-note {
+    font-size: 11px !important; font-style: normal !important; color: var(--lacy-text-muted) !important;
+    margin: 0 0 var(--lacy-space-2) !important;
+}
+body .quiz-answers { display: flex; flex-direction: column; gap: var(--lacy-space-1); }
+body .quiz-option:not(input) {
+    margin: 0 !important; padding: 6px 8px 6px 30px !important; font-size: 12.5px !important;
+    border: 1px solid var(--lacy-border-subtle) !important; border-radius: var(--lacy-radius-sm) !important;
+    background: transparent !important;
+}
+body .quiz-option:not(input):hover { border-color: var(--lacy-accent) !important; }
+body .quiz-option.selected { border-color: var(--lacy-accent) !important; background: color-mix(in srgb, var(--lacy-accent) 14%, transparent) !important; }
+body #finish-quiz, body #quiz-container > button:last-child {
+    width: 100%; min-height: var(--lacy-control-height); margin-top: var(--lacy-space-2);
+    padding: 4px 12px !important; font-size: 13px !important; font-weight: 500 !important;
+    color: var(--lacy-on-accent) !important; background: var(--lacy-accent) !important;
+    border: 1px solid transparent !important; border-radius: var(--lacy-radius-sm) !important; box-shadow: none !important;
+}
+body .quiz-option.radio-option::before, body .quiz-option.checkbox-option::before { left: 9px !important; width: 12px !important; height: 12px !important; }
+body .quiz-option:not(input) { position: relative; }
+body .quiz-option.selected.radio-option::before { background: var(--lacy-accent) !important; box-shadow: inset 0 0 0 2px var(--vscode-editorWidget-background, #252526); }
+body .quiz-option.selected.checkbox-option::before { background: var(--lacy-accent) !important; }
+body input.quiz-option { min-height: var(--lacy-control-height) !important; height: auto !important; }
+body .tour-nav #back-button, body .tour-nav #next-button, body .tour-nav #complete-button { height: var(--lacy-control-height) !important; line-height: 1 !important; }
+
+/* ---- Toggles: a fixed size that never shrinks with the panel ------------ */
+
+body .switch {
+    flex: none !important;
+    width: 32px !important; min-width: 32px; max-width: none !important;
+    height: 18px !important;
+    margin: 0 !important;
+}
+body .switch .slider { border-radius: 9px !important; background: var(--vscode-input-background, var(--lacy-border)) !important; border: 1px solid var(--lacy-border-subtle); }
+body .switch .slider:before { width: 12px !important; height: 12px !important; left: 2px !important; bottom: 2px !important; }
+body .switch input:checked + .slider { background: var(--lacy-accent) !important; border-color: var(--lacy-accent); }
+body .switch input:checked + .slider:before { transform: translateX(14px) !important; }
+body .switch input:focus-visible + .slider { outline: 1px solid var(--vscode-focusBorder, var(--lacy-accent)); outline-offset: 2px; }
+body .form-section .toggle-row > .toggle-label { flex: 1 1 auto; min-width: 0; }
+
+/* ---- Narrow panels ------------------------------------------------------ */
+
+/* Footer buttons may drop to a second line rather than squash. */
+body .tour-form-actions, body .tour-form-button-container, body .newTourContainer .button-container { flex-wrap: wrap !important; }
+@media (max-width: 240px) {
+    body { padding: 0 var(--lacy-space-2); }
+    body .tab { padding: 0 5px !important; letter-spacing: 0.02em; }
+    body #guidedTourForm-container, body #explorTourForm-container, body .tour-form-card,
+    body #tour-steps-list-container { padding: var(--lacy-space-3) !important; }
+    body .tour-form-actions button, body .tour-form-button-container button { flex: 1 1 auto; }
+}
+
+/* ---- Quiz results ------------------------------------------------------- */
+
+body .quiz-option.graded { cursor: default; }
+body .quiz-option.result-correct, body .quiz-option.result-incorrect, body .quiz-option.result-missed {
+    display: flex !important; align-items: center; justify-content: space-between; gap: var(--lacy-space-2);
+}
+body .quiz-option.result-correct::after, body .quiz-option.result-incorrect::after, body .quiz-option.result-missed::after {
+    flex: none; font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em;
+}
+body .quiz-option.result-correct {
+    border-color: var(--lacy-success) !important;
+    background: color-mix(in srgb, var(--lacy-success) 20%, transparent) !important;
+}
+body .quiz-option.result-correct::after { content: '✓ Your answer'; color: var(--lacy-success); }
+body .quiz-option.result-incorrect {
+    border-color: var(--lacy-danger) !important;
+    background: color-mix(in srgb, var(--lacy-danger) 16%, transparent) !important;
+}
+body .quiz-option.result-incorrect::after { content: '✗ Your answer'; color: var(--lacy-danger); }
+body .quiz-option.result-missed {
+    border: 1px dashed var(--lacy-success) !important;
+    background: transparent !important;
+}
+body .quiz-option.result-missed::after { content: 'Correct answer'; color: var(--lacy-success); }
+body input.quiz-option.result-correct { border-color: var(--lacy-success) !important; }
+body input.quiz-option.result-incorrect { border-color: var(--lacy-danger) !important; }
+body .correct-answer-description { font-size: 11.5px; color: var(--lacy-success); margin: var(--lacy-space-1) 0 0 !important; }
+
+/* The score after grading: a plain line, like the rest of the text. */
+body .score-container {
+    margin: var(--lacy-space-3) 0 !important; padding: 0 !important;
+    border: 0 !important; background: none !important;
+    text-align: left !important; max-width: none !important;
+}
+body .score-container .quiz-score-line { margin: 0 !important; font-size: 13px; color: var(--lacy-text); }
+body .score-container .quiz-score-line strong { font-weight: 600; color: var(--lacy-text-strong); }
+
+/* ---- Manual tour: "Add step" as a full-panel sheet ----------------------- */
+
+body #new-step-modal {
+    position: fixed !important; inset: 0 !important;
+    top: 0 !important; left: 0 !important; transform: none !important;
+    width: 100% !important; height: 100% !important; max-width: none !important;
+    display: block !important; overflow-y: auto;
+    margin: 0 !important; padding: var(--lacy-space-3) !important;
+    background: var(--lacy-bg) !important; box-shadow: none !important; border: none !important;
+    border-radius: 0 !important; z-index: 1000;
+}
+body #new-step-modal > * { width: auto; }
+body #new-step-modal .step-sheet {
+    padding: var(--lacy-space-4);
+    background: var(--vscode-editorWidget-background, var(--lacy-surface));
+    border: 1px solid var(--lacy-border-subtle);
+    border-radius: var(--lacy-radius);
+}
+body #new-step-modal .create-step-header { margin-bottom: var(--lacy-space-1) !important; }
+body #new-step-modal #file-select-container { max-height: 220px; border-radius: 0; overflow: visible; }
+body #new-step-modal .file-explorer-container {
+    max-height: 220px; overflow-y: auto; padding: var(--lacy-space-1) 0;
+    border: 1px solid var(--lacy-border-subtle); border-radius: var(--lacy-radius-sm);
+}
+body #new-step-modal .file-explorer-container ul { list-style: none; margin: 0; padding-left: 12px; }
+body #new-step-modal .file-explorer-container .folder, body #new-step-modal .file-explorer-container .file-container {
+    display: flex; align-items: center; min-height: 22px; padding: 0 6px; border-radius: 2px; cursor: pointer; font-size: 13px;
+}
+body #new-step-modal .file-explorer-container .folder:hover, body #new-step-modal .file-explorer-container .file-container:hover {
+    background: var(--vscode-list-hoverBackground, rgba(255, 255, 255, 0.06));
+}
+body #new-step-modal .selected-file { background: color-mix(in srgb, var(--lacy-accent) 28%, transparent) !important; }
+body #new-step-modal #selected-file-path {
+    margin: var(--lacy-space-2) 0 0 !important; padding: 0 !important;
+    font-size: 11.5px !important; background: none !important; color: var(--lacy-text-muted) !important;
+    overflow-wrap: anywhere;
+}
+
+/* Lines, description and the record/refresh helpers (also used when editing a step). */
+body .step-lines { display: flex; align-items: center; gap: var(--lacy-space-2); margin: 0 0 var(--lacy-space-3) !important; font-size: 12px; color: var(--lacy-text-muted); }
+body .step-lines input { width: 72px !important; flex: none; }
+body .step-description-header { display: flex; align-items: center; justify-content: space-between; gap: var(--lacy-space-2); }
+body .step-description-header .section-heading { margin: 0 !important; }
+body .step-description-header .recording-buttons { margin: 0 !important; gap: var(--lacy-space-1); }
+body .start-record, body .refresh-narration {
+    min-height: 22px; padding: 2px 8px !important; font-size: 11.5px !important; font-weight: 500;
+    color: var(--vscode-button-secondaryForeground, var(--lacy-text)) !important;
+    background: var(--vscode-button-secondaryBackground, rgba(255, 255, 255, 0.08)) !important;
+    border: 1px solid transparent !important; border-radius: var(--lacy-radius-sm) !important; box-shadow: none !important;
+}
+body .step-textarea { width: 100%; min-height: 110px; margin-top: var(--lacy-space-2); }
+body #modal-editable-container .tour-nav, body .tour-card .tour-nav {
+    display: flex !important; justify-content: flex-end !important;
+}
+
+/* ---- Tour lists --------------------------------------------------------- */
+
+body .tour-list { list-style: none; padding: 0 !important; margin: var(--lacy-space-2) 0 0 !important; display: flex; flex-direction: column; gap: var(--lacy-space-1); }
+body .tour-item {
+    display: flex !important; align-items: center; justify-content: space-between; gap: var(--lacy-space-2);
+    min-height: 32px; padding: 4px 4px 4px 10px !important; margin: 0 !important;
+    font-size: 13px; color: var(--lacy-text);
+    background: transparent !important;
+    border: 1px solid var(--lacy-border-subtle) !important; border-radius: var(--lacy-radius-sm) !important;
+    box-shadow: none !important; cursor: pointer;
+}
+body .tour-item:hover { border-color: var(--lacy-accent) !important; background: color-mix(in srgb, var(--lacy-accent) 8%, transparent) !important; }
+body .tour-item .tour-name { flex: 1; min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; overflow-wrap: anywhere; }
+/* Finished: a quiet check and a muted name, not a green slab. */
+/* A finished tour: a green tint on the card, no label. */
+body .tour-item.completed-tour {
+    background: color-mix(in srgb, var(--lacy-success) 14%, transparent) !important;
+    border-color: color-mix(in srgb, var(--lacy-success) 55%, transparent) !important;
+}
+body .tour-item.completed-tour:hover {
+    background: color-mix(in srgb, var(--lacy-success) 20%, transparent) !important;
+    border-color: var(--lacy-success) !important;
+}
+body .visually-hidden {
+    position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+body .status-label, body .new-badge {
+    margin: 0 !important; padding: 1px 6px !important;
+    font-size: 10px !important; font-weight: 600 !important; letter-spacing: 0.03em; line-height: 1.5;
+    border-radius: 999px !important; white-space: nowrap;
+}
+body .status-label { color: var(--lacy-success) !important; background: color-mix(in srgb, var(--lacy-success) 20%, transparent) !important; }
+body .new-badge { color: var(--lacy-on-accent) !important; background: var(--lacy-accent) !important; }
+
+/* Row actions: small icon buttons; delete turns red only on hover. */
+body .tour-item .button-container { display: flex !important; flex-wrap: nowrap !important; gap: 2px !important; margin: 0 !important; flex: none; }
+body .tour-item .delete-button, body .tour-item .edit-button, body .tour-item .info-toggle-button, body .tour-item .podcast-button {
+    width: 24px !important; height: 24px !important; min-height: 0 !important; min-width: 0 !important;
+    padding: 0 !important; display: inline-flex !important; align-items: center; justify-content: center;
+    font-size: 13px !important; line-height: 1 !important;
+    color: var(--lacy-text-muted) !important; background: transparent !important;
+    border: none !important; border-radius: var(--lacy-radius-sm) !important; box-shadow: none !important;
+}
+body .tour-item .lacy-icon { font-size: 13px !important; line-height: 1; filter: grayscale(1); opacity: 0.85; }
+body .tour-item .delete-button:hover { color: var(--lacy-danger) !important; background: color-mix(in srgb, var(--lacy-danger) 16%, transparent) !important; }
+body .tour-item .delete-button:hover .lacy-icon { filter: none; opacity: 1; }
+body .tour-item .edit-button:hover, body .tour-item .info-toggle-button:hover, body .tour-item .podcast-button:hover {
+    color: var(--lacy-text) !important; background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.1)) !important;
+}
+
+/* ---- Confirmation dialog: even spacing ---------------------------------- */
+
+body #confirmation-overlay .modal { display: flex; flex-direction: column; gap: var(--lacy-space-4); }
+body #confirmation-overlay .modal p { margin: 0 !important; line-height: 1.5; }
+body #confirmation-overlay .modal-buttons { margin: 0 !important; padding: 0 !important; justify-content: flex-end !important; gap: var(--lacy-space-2) !important; }
+body #confirmation-overlay .modal-buttons button { width: auto !important; flex: none !important; margin: 0 !important; }
+/* Delete is the dangerous choice here, so it is the red one. */
+body #confirmation-overlay.is-danger #confirmation-yes {
+    background: var(--lacy-danger) !important; color: var(--lacy-on-accent) !important;
+}
+
+/* Rows need an outline you can actually see on the card. */
+body .tour-item { border-color: color-mix(in srgb, var(--lacy-text) 14%, transparent) !important; }
+
+/* Step editor: body font, editor-like field, buttons on one baseline. */
+body textarea.step-textarea {
+    font-family: var(--lacy-font) !important; font-size: 13px !important; line-height: 1.5 !important;
+    min-height: 110px !important; max-height: none !important; padding: 6px 8px !important;
+    color: var(--vscode-input-foreground, var(--lacy-text)) !important;
+    background: var(--vscode-input-background, var(--lacy-surface-raised)) !important;
+    border: 1px solid var(--vscode-input-border, var(--lacy-border-subtle)) !important;
+    border-radius: var(--lacy-radius-sm) !important; box-shadow: none !important; margin: var(--lacy-space-2) 0 0 !important;
+}
+body textarea.step-textarea:focus { outline: 1px solid var(--vscode-focusBorder, var(--lacy-accent)) !important; outline-offset: -1px; }
+body .start-line-input, body .end-line-input { font-family: var(--lacy-font) !important; }
+body .discard-button-edit, body .save-button-edit {
+    height: var(--lacy-control-height) !important; margin: 0 !important; padding: 0 14px !important;
+    font-size: 13px !important; line-height: 1 !important;
+}
+body .save-button-edit { background: var(--lacy-accent) !important; color: var(--lacy-on-accent) !important; }
+body #new-step-modal #selected-file-path { border: none !important; }
+body #new-step-modal .file-explorer-container .file-container::before,
+body #new-step-modal .file-explorer-container .folder::before { font-size: 12px; }
+
+/* "No AI model set up": said under the dropdown, in the warning colour. */
+body .model-unavailable {
+    margin: var(--lacy-space-1) 0 0 !important; padding: var(--lacy-space-2) !important;
+    font-size: 11.5px; line-height: 1.45; color: var(--lacy-text) !important;
+    background: color-mix(in srgb, var(--lacy-warning) 12%, transparent);
+    border-left: 2px solid var(--lacy-warning); border-radius: 2px;
+}
+body select:disabled { opacity: 0.7; cursor: default; }
+body .tour-submit-button:disabled { opacity: 0.45 !important; cursor: not-allowed !important; }
+
+/* The manual step's tree marks its pick on the row itself; match the others. */
+body .file-explorer .file-container.selected-file {
+    background: color-mix(in srgb, var(--lacy-accent) 28%, transparent) !important;
+    color: var(--lacy-text-strong);
+}
+body #new-step-modal .file-explorer { max-height: 220px; }
+body .file-explorer .file-container.selected-file { border: none !important; outline: none !important; box-shadow: none !important; padding: 0 6px !important; }
+
+/* ---- Quiz editor (expert) ----------------------------------------------- */
+
+body #quiz-edit-container {
+    margin: 0 !important; padding: var(--lacy-space-4) !important; max-width: none !important;
+    background: var(--vscode-editorWidget-background, var(--lacy-surface)) !important;
+    border: 1px solid var(--lacy-border-subtle) !important; border-radius: var(--lacy-radius) !important;
+    box-shadow: none !important;
+}
+body .quiz-editor .tour-title { margin-bottom: var(--lacy-space-1) !important; }
+body .quiz-edit-card {
+    margin: var(--lacy-space-3) 0 0 !important; padding: var(--lacy-space-3) !important;
+    background: var(--lacy-bg) !important;
+    border: 1px solid var(--lacy-border-subtle) !important; border-radius: var(--lacy-radius) !important;
+    box-shadow: none !important;
+}
+body .quiz-edit-card.has-error { border-color: var(--lacy-danger) !important; }
+body .quiz-edit-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--lacy-space-2); }
+body .quiz-edit-number {
+    font-family: var(--lacy-font-display); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--lacy-accent-soft);
+}
+body .quiz-edit-card .delete-question-button {
+    width: 24px !important; height: 24px !important; min-height: 0 !important; padding: 0 !important; margin: 0 !important;
+    font-size: 12px !important; line-height: 1; color: var(--lacy-text-muted) !important;
+    background: transparent !important; border: none !important; border-radius: var(--lacy-radius-sm) !important;
+    filter: grayscale(1); box-shadow: none !important;
+}
+body .quiz-edit-card .delete-question-button:hover { filter: none; background: color-mix(in srgb, var(--lacy-danger) 16%, transparent) !important; }
+body .quiz-edit-card textarea { margin: 0 !important; min-height: 48px; }
+
+/* One answer · Several answers · Typed answer */
+body .quiz-kind {
+    display: flex; margin: var(--lacy-space-2) 0 var(--lacy-space-1);
+    border: 1px solid var(--lacy-border-subtle); border-radius: var(--lacy-radius-sm); overflow: hidden;
+}
+body .quiz-kind-option {
+    flex: 1 1 0; min-width: 0; padding: 4px 6px; font-size: 11.5px; font-weight: 500; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+    color: var(--lacy-text-muted); background: transparent; border: none; cursor: pointer;
+}
+body .quiz-kind-option + .quiz-kind-option { border-left: 1px solid var(--lacy-border-subtle); }
+body .quiz-kind-option:hover { color: var(--lacy-text); }
+body .quiz-kind-option.is-active { color: var(--lacy-on-accent); background: var(--lacy-accent); }
+body .quiz-kind-hint { font-size: 11px; color: var(--lacy-text-muted); margin: 0 0 var(--lacy-space-2) !important; }
+
+/* Option rows: mark · text · remove */
+body .quiz-edit-card .options-container, body .quiz-edit-card .answers-container {
+    display: flex; flex-direction: column; gap: var(--lacy-space-1);
+    margin: 0 !important; padding: 0 !important; background: none !important; border: none !important;
+}
+body .quiz-edit-card .option-item { display: flex; align-items: center; gap: var(--lacy-space-2); margin: 0 !important; }
+body .quiz-edit-card .correct-marker { flex: none; width: 14px; height: 14px; margin: 0; accent-color: var(--lacy-success); cursor: pointer; }
+body .quiz-edit-card .option-input { flex: 1 1 auto; min-width: 0; margin: 0 !important; }
+body .quiz-edit-card .option-item:has(.correct-marker:checked) .option-input {
+    border-color: var(--lacy-success) !important;
+    background: color-mix(in srgb, var(--lacy-success) 8%, var(--vscode-input-background, var(--lacy-surface-raised))) !important;
+}
+body .quiz-edit-card .remove-option {
+    flex: none; width: 22px; height: 22px; padding: 0; font-size: 14px; line-height: 1;
+    color: var(--lacy-text-muted); background: transparent; border: none; border-radius: var(--lacy-radius-sm); cursor: pointer;
+}
+body .quiz-edit-card .remove-option:hover { color: var(--lacy-text); background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.1)); }
+body .quiz-edit-card .add-option {
+    align-self: flex-start; margin: var(--lacy-space-1) 0 0 22px !important; padding: 2px 6px !important;
+    font-size: 12px !important; color: var(--lacy-accent-soft) !important;
+    background: transparent !important; border: none !important; box-shadow: none !important; cursor: pointer;
+}
+body .quiz-edit-card .add-option:hover { text-decoration: underline; }
+body .quiz-edit-card .field-error { margin: var(--lacy-space-2) 0 0 !important; font-size: 11.5px; color: var(--lacy-danger) !important; }
+body .quiz-error-messages:not(:empty) {
+    margin-top: var(--lacy-space-3); padding: var(--lacy-space-2) var(--lacy-space-3);
+    font-size: 12px; color: var(--lacy-text);
+    background: color-mix(in srgb, var(--lacy-danger) 12%, transparent);
+    border-left: 2px solid var(--lacy-danger); border-radius: 2px;
+}
+body .quiz-error-messages p { margin: 0 0 var(--lacy-space-1) !important; }
+body .quiz-error-messages ul { margin: 0; padding-left: 16px; }
+body .quiz-editor-actions { justify-content: space-between !important; }
+body .quiz-edit-card input[type="text"], body .quiz-edit-card textarea {
+    min-height: var(--lacy-control-height) !important; padding: 4px 8px !important; margin: 0 !important;
+    font-size: 12.5px !important; line-height: 1.4 !important;
+}
+body .quiz-edit-card textarea { resize: none; overflow: hidden; }
+body .quiz-edit-card textarea.option-input { min-height: var(--lacy-control-height) !important; }
+
+/* Expert's answer key: the correct option(s) marked, as in the editor. */
+body .quiz-option.result-key {
+    display: flex !important; align-items: center; justify-content: space-between; gap: var(--lacy-space-2);
+    border-color: var(--lacy-success) !important;
+    background: color-mix(in srgb, var(--lacy-success) 14%, transparent) !important;
+}
+body .quiz-option.result-key::after { content: '✓ Correct'; flex: none; font-size: 10.5px; font-weight: 600; color: var(--lacy-success); }
+body .quiz-option.text-option { padding-left: 8px !important; }
+body .quiz-option.text-option::before { display: none !important; }
+body .return-button { margin-top: var(--lacy-space-3) !important; }
+
+/* Live checks: one quiet hint on the card, and why Save is not available yet. */
+body .quiz-card-status:empty { display: none; }
+body .quiz-card-status {
+    margin: var(--lacy-space-2) 0 0 !important; font-size: 11.5px; color: var(--lacy-warning);
+}
+body .quiz-card-status::before { content: '● '; font-size: 8px; vertical-align: 2px; }
+body .quiz-edit-card.is-incomplete { border-color: color-mix(in srgb, var(--lacy-warning) 55%, transparent) !important; }
+body .quiz-editor-actions { align-items: center; }
+body .quiz-save-status { flex: 1 1 auto; text-align: right; font-size: 11.5px; color: var(--lacy-text-muted); }
+body .quiz-edit-card .remove-option:disabled { opacity: 0.25; cursor: default; background: none; }
+body .quiz-save-status { order: -1; flex: 1 0 100%; text-align: right; margin-bottom: calc(-1 * var(--lacy-space-1)); }
+body .quiz-save-status:empty { display: none; }
+body .quiz-card-status { padding: 0 !important; background: none !important; border: none !important; }
+body #tour-steps-list-container:empty { display: none; }
+/* Add question on the left; Skip and Save together on the right. */
+body #skip-quiz-button { margin-left: auto !important; }
+body .quiz-editor-actions #add-question-button {
+    flex: 1 0 100%; justify-content: center;
+    background: transparent !important; border: 1px dashed var(--lacy-border-subtle) !important;
+    color: var(--lacy-accent-soft) !important;
+}
+body .quiz-editor-actions #add-question-button:hover { border-color: var(--lacy-accent) !important; }
+body .quiz-editor-actions #save-quiz-button { margin-left: auto; }
+body #skip-quiz-button + #save-quiz-button, body #skip-quiz-button ~ .quiz-save-status + #save-quiz-button { margin-left: 0; }
+
+/* ---- Editing a tour: step cards and reordering -------------------------- */
+
+body .tour-card {
+    position: relative; margin: 0 0 var(--lacy-space-2) !important; padding: var(--lacy-space-2) var(--lacy-space-3) !important;
+    background: var(--lacy-bg) !important; border: 1px solid var(--lacy-border-subtle) !important;
+    border-radius: var(--lacy-radius) !important; box-shadow: none !important; transform: none !important;
+    cursor: pointer;
+}
+body .tour-card:hover { border-color: var(--lacy-accent) !important; }
+body .tour-card .tour-card-header { display: flex; align-items: center; gap: var(--lacy-space-2); }
+body .tour-card .tour-card-header h2 { margin: 0 !important; font-size: 13px !important; }
+body .tour-card .tour-card-lines { margin: 0 0 0 auto !important; font-size: 11px; color: var(--lacy-text-muted); }
+body .tour-card .tour-card-explanation { margin: var(--lacy-space-1) 0 0 !important; font-size: 12px; color: var(--lacy-text-muted); }
+body .drag-handle {
+    flex: none; width: 18px; height: 22px; padding: 0; margin: 0 0 0 -4px;
+    font-size: 12px; letter-spacing: -2px; line-height: 1;
+    color: var(--lacy-text-muted); background: transparent; border: none; border-radius: 3px;
+    cursor: grab; touch-action: none;
+}
+body .drag-handle:hover, body .drag-handle:focus-visible { color: var(--lacy-text); background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.1)); }
+body .is-reordering, body .is-reordering * { cursor: grabbing !important; user-select: none; }
+/* The card being moved stays in the list, lifted, so you can see where it will land. */
+body .tour-card.dragging {
+    position: relative !important; width: auto !important; transform: none !important; opacity: 1 !important;
+    border-color: var(--lacy-accent) !important;
+    background: color-mix(in srgb, var(--lacy-accent) 12%, var(--lacy-bg)) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* ---- Sign-in: centred in the panel, not stuck to the top ---------------- */
+
+body #login-content.active {
+    display: flex !important; flex-direction: column; justify-content: center;
+    min-height: calc(100vh - var(--lacy-space-4));
+    padding: var(--lacy-space-4) 0;
+}
+body #login-content .landing-wrapper {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    width: 100%; max-width: 320px; margin: 0 auto !important; padding: 0 !important;
+}
+body #login-content .landing-logo { margin: 0 0 var(--lacy-space-2) !important; }
+body #login-content .landing-brand { margin: 0 !important; }
+body #login-content .landing-subtitle { margin: var(--lacy-space-1) 0 var(--lacy-space-4) !important; }
+body #login-content .login-wrapper { width: 100%; text-align: left; margin: 0 !important; }
+body #login-content.active #login-container { width: 100%; }
+body #login-content .landing-wrapper { height: auto !important; }
+body #login-form, body #login-form label, body #login-form input, body #login-form input::placeholder { font-family: var(--lacy-font) !important; }
+body #login-form label { margin: var(--lacy-space-3) 0 var(--lacy-space-1) !important; }
+body #login-form label:first-child { margin-top: 0 !important; }
+body #login-form input { margin: 0 !important; }
+body #login-form .login-button { margin-top: var(--lacy-space-4) !important; }
+body #login-content .login-wrapper { padding: var(--lacy-space-4) !important; }
+
+/* Anything the scripts hide stays hidden, whatever display a rule above gives it
+   (labels are display:block, which beat the browser's own [hidden] rule). */
+body [hidden] { display: none !important; }
+
+/* ---- Voice tour: one button to record, a timer, then review ------------- */
+
+body .voice-form-error {
+    margin: var(--lacy-space-3) 0 0 !important; padding: var(--lacy-space-2) var(--lacy-space-3) !important;
+    font-size: 12px; color: var(--lacy-text);
+    background: color-mix(in srgb, var(--lacy-danger) 12%, transparent);
+    border-left: 2px solid var(--lacy-danger); border-radius: 2px;
+}
+body .is-recording-step > .form-section:not(.voice-recorder .form-section) { opacity: 0.6; }
+body .voice-stage { display: flex; flex-direction: column; align-items: center; gap: var(--lacy-space-2); padding: var(--lacy-space-3) 0; text-align: center; }
+body .record-button {
+    width: 64px; height: 64px; padding: 0; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    background: color-mix(in srgb, var(--lacy-danger) 14%, transparent);
+    border: 2px solid var(--lacy-danger); transition: transform 0.15s ease, background 0.15s ease;
+}
+body .record-button:hover { background: color-mix(in srgb, var(--lacy-danger) 24%, transparent); }
+body .record-button:focus-visible { outline: 2px solid var(--vscode-focusBorder, var(--lacy-accent)); outline-offset: 3px; }
+/* Idle: a red dot. Recording: a stop square, and the ring pulses. */
+body .record-icon { width: 22px; height: 22px; border-radius: 50%; background: var(--lacy-danger); transition: border-radius 0.15s ease, width 0.15s, height 0.15s; }
+body .record-button.is-recording { background: var(--lacy-danger); animation: lacy-record-pulse 1.6s ease-out infinite; }
+body .record-button.is-recording .record-icon { width: 18px; height: 18px; border-radius: 3px; background: var(--lacy-on-accent); }
+@keyframes lacy-record-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lacy-danger) 55%, transparent); }
+    100% { box-shadow: 0 0 0 14px transparent; }
+}
+@media (prefers-reduced-motion: reduce) { body .record-button.is-recording { animation: none; } }
+body .voice-timer { font-family: var(--lacy-font-display); font-size: 20px; letter-spacing: 0.06em; color: var(--lacy-text-strong); font-variant-numeric: tabular-nums; }
+body .voice-status { margin: 0 !important; max-width: 240px; font-size: 12px; color: var(--lacy-text-muted); }
+body #audioPlayer { width: 100%; height: 32px; margin-top: var(--lacy-space-2); }
+
+/* Popup: Voice greyed out, with the reason under it. */
+body .tour-method-button:disabled { opacity: 0.5; cursor: not-allowed; }
+body .tour-method-hint.is-unavailable { color: var(--lacy-warning) !important; }
+
+/* ---- Tour info card (ⓘ) ------------------------------------------------- */
+
+body #tour-info-content { position: relative; }
+body .tour-info-close { position: absolute !important; top: var(--lacy-space-3); right: var(--lacy-space-3); }
+body .tour-info-kind {
+    display: inline-block; margin-bottom: var(--lacy-space-1);
+    font-family: var(--lacy-font-display); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--lacy-accent-soft);
+}
+body .tour-info-title { margin: 0 var(--lacy-space-5) var(--lacy-space-2) 0 !important; font-size: 15px !important; color: var(--lacy-text-strong) !important; }
+body .tour-info-focus { margin: 0 0 var(--lacy-space-3) !important; font-size: 12px; color: var(--lacy-text); }
+body .tour-info-focus span {
+    display: block; margin-bottom: 2px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--lacy-text-muted);
+}
+body .tour-info-facts {
+    display: grid; grid-template-columns: auto 1fr; gap: 4px var(--lacy-space-3); margin: 0 0 var(--lacy-space-3);
+    padding: var(--lacy-space-2) 0; border-top: 1px solid var(--lacy-border-subtle); border-bottom: 1px solid var(--lacy-border-subtle);
+    font-size: 12px;
+}
+body .tour-info-facts dt { color: var(--lacy-text-muted); }
+body .tour-info-facts dd { margin: 0; color: var(--lacy-text); }
+body .tour-info-files-heading { margin: 0 0 var(--lacy-space-1) !important; }
+body .tour-info-files { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; max-height: 220px; overflow-y: auto; }
+body .tour-info-file { display: flex; flex-direction: column; padding: 4px 6px; border-radius: 3px; }
+body .tour-info-file:hover { background: var(--vscode-list-hoverBackground, rgba(255, 255, 255, 0.06)); }
+body .tour-info-file-name { font-size: 12.5px; color: var(--lacy-text-strong); overflow-wrap: anywhere; }
+body .tour-info-dir { color: var(--lacy-text-muted); }
+body .tour-info-file-meta { font-size: 11px; color: var(--lacy-text-muted); }
+body .tour-info-empty, body .tour-info-loading { font-size: 12px; color: var(--lacy-text-muted); margin: 0 !important; }
+body #tour-info-content { width: 100% !important; max-width: 320px !important; }
+
+/* ---- Server unreachable ------------------------------------------------- */
+
+body .lacy-offline {
+    position: sticky; top: 0; z-index: 2000;
+    display: flex; align-items: center; gap: var(--lacy-space-2);
+    margin: 0 calc(-1 * var(--lacy-space-3)) var(--lacy-space-2);
+    padding: var(--lacy-space-2) var(--lacy-space-3);
+    font-size: 12px; color: var(--lacy-text);
+    background: color-mix(in srgb, var(--lacy-warning) 18%, var(--lacy-bg));
+    border-bottom: 1px solid color-mix(in srgb, var(--lacy-warning) 50%, transparent);
+}
+body .lacy-offline-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+body .lacy-offline-text strong { font-weight: 600; color: var(--lacy-text-strong); }
+body .lacy-offline-text span { color: var(--lacy-text-muted); font-size: 11.5px; overflow-wrap: anywhere; }
+body #lacy-offline-retry {
+    flex: none; padding: 3px 10px; font-size: 12px; cursor: pointer; border-radius: var(--lacy-radius-sm);
+    color: var(--vscode-button-secondaryForeground, var(--lacy-text));
+    background: var(--vscode-button-secondaryBackground, rgba(255, 255, 255, 0.1)); border: none;
+}
+/* While offline, creating things would only fail: make that visible. */
+body.is-offline .tour-submit-button:not(#confirmation-yes), body.is-offline .create-tour-button { opacity: 0.45; pointer-events: none; }
+
+/* Step card: ⋮⋮ · Step N · file · lines · ✎, then two lines of its text. */
+body .tour-card .tour-card-header { gap: 6px !important; }
+body .tour-card .tour-card-header h2 { flex: none; }
+body .tour-card .tour-card-where {
+    flex: 1 1 auto; min-width: 0; font-size: 11.5px; color: var(--lacy-text-muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+body .tour-card .step-edit-button {
+    position: static !important; flex: none; width: 24px; height: 24px; padding: 0 !important; margin: 0 !important;
+    font-size: 13px !important; color: var(--lacy-text-muted) !important; background: transparent !important;
+    border: none !important; border-radius: var(--lacy-radius-sm) !important; box-shadow: none !important;
+    opacity: 0.6;
+}
+body .tour-card:hover .step-edit-button, body .tour-card .step-edit-button:focus-visible { opacity: 1; }
+body .tour-card .step-edit-button:hover { color: var(--lacy-text) !important; background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.1)) !important; }
+body .tour-card .tour-card-explanation {
+    margin: 4px 0 0 22px !important; font-size: 12px !important; line-height: 1.45; color: var(--lacy-text-muted) !important;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+body .tour-card .tour-card-explanation em { font-style: normal; opacity: 0.7; }
+
+/* Editing a tour: back · title (click to rename) · + Add step, then a hint. */
+body .tour-header-bar:has(.title-tour) {
+    display: flex !important; align-items: center; gap: var(--lacy-space-2); margin-bottom: var(--lacy-space-1) !important;
+}
+body .tour-header-bar .back-button {
+    flex: none; width: 26px; height: 26px; min-height: 0 !important; padding: 0 !important; font-size: 14px !important;
+    background: transparent !important; color: var(--lacy-text-muted) !important;
+}
+body .tour-header-bar .back-button:hover { background: var(--vscode-toolbar-hoverBackground, rgba(255, 255, 255, 0.1)) !important; color: var(--lacy-text) !important; }
+body .tour-header-bar .editable-title-wrapper {
+    flex: 1 1 auto; min-width: 0; margin: 0 !important; padding: 0 !important;
+    background: none !important; border: none !important; box-shadow: none !important;
+}
+body .tour-header-bar .title-tour {
+    margin: 0 !important; padding: 2px 6px !important; font-size: 15px !important;
+    font-family: var(--lacy-font-display) !important; color: var(--lacy-text-strong) !important;
+    border: 1px solid transparent !important; border-radius: var(--lacy-radius-sm) !important;
+    overflow-wrap: anywhere; outline: none;
+}
+body .tour-header-bar .title-tour:hover { border-color: var(--lacy-border-subtle) !important; }
+body .tour-header-bar .title-tour:focus { border-color: var(--vscode-focusBorder, var(--lacy-accent)) !important; background: var(--vscode-input-background, transparent) !important; }
+body .tour-header-bar .add-step-button { flex: none; white-space: nowrap; }
+body .tour-edit-hint { margin: 0 0 var(--lacy-space-3) !important; font-size: 11px; color: var(--lacy-text-muted); }
+body .tour-header-bar:has(.title-tour) { flex-wrap: wrap; }
+body .tour-header-bar .tour-edit-hint { flex: 1 0 100%; margin: 0 0 var(--lacy-space-2) 34px !important; }
+
+/* ---- Ask about a step / take a note -------------------------------------- */
+/* Lacy's ghost with a speech bubble, floating bottom-right; the box opens above it. */
+body #ask-question-container { position: fixed; bottom: 20px; right: 20px; z-index: 50; }
+body #ask-question-ui { position: relative; }
+body #ask-question-button {
+    display: flex; align-items: center; gap: 10px;
+    margin: 0; padding: 0; border: none; background: transparent; cursor: pointer;
+}
+body #ask-question-button:focus-visible { outline: 1px solid var(--vscode-focusBorder, var(--lacy-accent)); outline-offset: 4px; border-radius: 20px; }
+body .ask-logo { width: 40px; height: 40px; object-fit: contain; }
+body .speech-bubble {
+    position: relative; white-space: nowrap;
+    padding: 6px 12px; border-radius: 20px;
+    background: var(--lacy-accent); color: #fff;
+    font-size: var(--lacy-text-sm); font-weight: 500;
+}
+body .speech-bubble::after {
+    content: ''; position: absolute; top: 50%; left: -6px; transform: translateY(-50%);
+    border-top: 6px solid transparent; border-bottom: 6px solid transparent;
+    border-right: 6px solid var(--lacy-accent);
+}
+body #ask-question-button:hover .speech-bubble { background: #5d52d3; }
+body #ask-question-button:hover .speech-bubble::after { border-right-color: #5d52d3; }
+
+body #question-modal {
+    position: absolute; bottom: 50px; right: 0;
+    width: 280px; max-width: calc(100vw - 40px); box-sizing: border-box;
+    display: flex; flex-direction: column;
+    padding: var(--lacy-space-4);
+    background: var(--lacy-bg); border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+body #question-modal[hidden] { display: none !important; }
+body #question-input {
+    width: 100%; height: 80px; box-sizing: border-box; margin: 0 0 var(--lacy-space-2);
+    padding: var(--lacy-space-2); resize: none; border: none; border-radius: 6px;
+    font: inherit; font-size: var(--lacy-text-sm);
+    color: var(--vscode-input-foreground, var(--lacy-text));
+    background: var(--vscode-input-background, var(--lacy-surface-raised));
+}
+body #question-input:focus { outline: 1px solid var(--vscode-focusBorder, var(--lacy-accent)); }
+body #send-question-button {
+    margin: 0; padding: var(--lacy-space-2); border: none; border-radius: 6px;
+    background: var(--lacy-accent); color: #fff; font-weight: 600; cursor: pointer;
+    transition: background 0.3s ease;
+}
+body #send-question-button:hover:not(:disabled) { background: #5d52d3; }
+body #send-question-button:disabled { opacity: 0.5; cursor: default; }
+
+/* Questions already asked on this step, under the explanation. */
+body .questions-container {
+    margin-top: var(--lacy-space-4) !important; padding: 0 !important;
+    background: none !important; box-shadow: none !important; font-size: 12px;
+}
+body .questions-heading {
+    margin: 0 0 var(--lacy-space-2) !important;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--lacy-text-muted);
+}
+body .questions-container ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--lacy-space-2); }
+body .question-item {
+    margin: 0 !important; padding: 6px 10px !important;
+    background: var(--lacy-surface-raised) !important; color: var(--lacy-text) !important;
+    border: 0 !important; border-left: 2px solid var(--lacy-accent) !important; border-radius: var(--lacy-radius-sm) !important;
+    font-size: 12.5px !important; line-height: 1.5 !important;
+}
+body .question-item p { margin: 0 !important; overflow-wrap: anywhere; white-space: pre-wrap; }
+body .question-answer { margin-top: 4px !important; }
+body .question-label { display: block; font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--lacy-accent-soft); }
+body .question-pending { margin-top: 2px !important; font-size: 11.5px; font-style: italic; color: var(--lacy-text-muted); }
+/* Keep the last lines of a step clear of the floating button. */
+body:has(#ask-question-container) #tour-step-content { padding-bottom: 72px; }
+
+body .lacy-toast {
+    position: fixed; z-index: 60; left: 50%; bottom: 56px; transform: translateX(-50%);
+    max-width: calc(100% - 32px); padding: 6px 12px;
+    background: var(--vscode-notifications-background, #252526); color: var(--vscode-notifications-foreground, var(--lacy-text));
+    border: 1px solid var(--vscode-notifications-border, var(--lacy-border-subtle)); border-radius: var(--lacy-radius-sm);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35); font-size: 12px; opacity: 0; transition: opacity 0.2s ease;
+}
+
+/* ---- Podcast player ------------------------------------------------------- */
+body .podcast-header { margin-bottom: var(--lacy-space-2) !important; }
+body .podcast-status { margin: 0 0 var(--lacy-space-2) !important; font-size: 11.5px; color: var(--lacy-text-muted); }
+body .podcast-controls { display: flex; gap: var(--lacy-space-2); margin-bottom: var(--lacy-space-3); }
+body .podcast-controls[hidden] { display: none !important; }
+body .podcast-controls button { margin: 0 !important; min-height: var(--lacy-control-height) !important; padding: 2px 12px !important; }
+body .podcast-controls #pause-btn { flex: 1; }
+/* The transcript as a chat: the expert on the left, the learner on the right. */
+body .podcast-transcript {
+    list-style: none; margin: 0 !important; padding: 0 0 var(--lacy-space-4) !important;
+    display: flex; flex-direction: column; gap: 10px;
+}
+body .podcast-line {
+    display: flex; align-items: flex-end; gap: 6px;
+    max-width: 88%; cursor: pointer;
+}
+body .podcast-line.is-expert { align-self: flex-start; }
+body .podcast-line.is-junior { align-self: flex-end; flex-direction: row-reverse; }
+
+body .podcast-avatar {
+    flex: none; width: 22px; height: 22px; border-radius: 50%;
+    display: grid; place-items: center; overflow: hidden;
+    font-size: 11px; font-weight: 600; color: var(--lacy-text-strong);
+}
+body .podcast-line.is-expert .podcast-avatar { background: var(--lacy-accent); }
+body .podcast-line.is-expert .podcast-avatar img { width: 15px; height: 15px; object-fit: contain; }
+body .podcast-line.is-junior .podcast-avatar {
+    background: var(--vscode-editorWidget-background, var(--lacy-surface));
+    border: 1px solid var(--lacy-border-subtle);
+}
+
+body .podcast-bubble {
+    position: relative; min-width: 0;
+    padding: 6px 10px 7px; border-radius: 12px;
+    font-size: 12.5px; line-height: 1.45;
+    border: 1px solid transparent;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+/* Expert: the panel's raised surface, tail on the bottom left. */
+body .podcast-line.is-expert .podcast-bubble {
+    background: var(--vscode-editorWidget-background, var(--lacy-surface));
+    border-color: var(--lacy-border-subtle);
+    color: var(--lacy-text);
+    border-bottom-left-radius: 3px;
+}
+/* Learner: accent tinted, tail on the bottom right. */
+body .podcast-line.is-junior .podcast-bubble {
+    background: color-mix(in srgb, var(--lacy-accent) 28%, var(--lacy-surface-raised));
+    color: var(--lacy-text-strong);
+    border-bottom-right-radius: 3px;
+}
+body .podcast-speaker {
+    display: block; margin-bottom: 1px;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--lacy-accent-soft);
+}
+body .podcast-line.is-junior .podcast-speaker { color: color-mix(in srgb, var(--lacy-text-strong) 70%, transparent); text-align: right; }
+body .podcast-text { margin: 0 !important; overflow-wrap: anywhere; white-space: pre-wrap; }
+
+body .podcast-line:not(.is-current):hover .podcast-bubble { border-color: color-mix(in srgb, var(--lacy-accent) 60%, transparent); }
+body .podcast-line:focus-visible { outline: none; }
+body .podcast-line:focus-visible .podcast-bubble { outline: 1px solid var(--vscode-focusBorder, var(--lacy-accent)); outline-offset: 1px; }
+/* The line being spoken. */
+body .podcast-line.is-current .podcast-bubble {
+    border-color: var(--lacy-accent-soft) !important;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--lacy-accent-soft) 45%, transparent);
+}
+body .podcast-line.is-junior.is-current .podcast-bubble {
+    background: color-mix(in srgb, var(--lacy-accent) 42%, var(--lacy-surface-raised));
+}
+/* Hover only where a pointer can hover, so it is never mistaken for "now playing". */
+@media (hover: none) { body .podcast-line:hover .podcast-bubble { border-color: inherit; } }
+body .podcast-line.is-missing { cursor: default; }
+body .podcast-line.is-missing .podcast-bubble { opacity: 0.5; }
+
+/* A warning that something will not work, and why. */
+body .lacy-warning {
+    margin: var(--lacy-space-2) 0 !important; padding: 6px 10px 6px 28px; position: relative;
+    font-size: 11.5px; line-height: 1.45; color: var(--lacy-text);
+    background: color-mix(in srgb, var(--lacy-warning) 12%, transparent);
+    border-left: 2px solid var(--lacy-warning); border-radius: 2px;
+}
+body .lacy-warning::before { content: '⚠'; position: absolute; left: 9px; top: 5px; color: var(--lacy-warning); }
+body .lacy-warning[hidden] { display: none !important; }
+body .toggle-row.is-unavailable { opacity: 0.55; }
+body .toggle-row.is-unavailable .switch { cursor: not-allowed; }
+
+/* A file the line talks about: click to show it in the editor. */
+body .podcast-file {
+    display: inline-flex; align-items: center; gap: 4px; max-width: 100%;
+    margin: 5px 0 0 !important; padding: 1px 7px !important; min-height: 0 !important;
+    font: inherit; font-family: var(--vscode-editor-font-family, monospace); font-size: 10.5px !important;
+    color: var(--lacy-text) !important; cursor: pointer;
+    background: color-mix(in srgb, var(--lacy-bg) 55%, transparent) !important;
+    border: 1px solid var(--lacy-border-subtle) !important; border-radius: 999px !important;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+body .podcast-file::before { content: '📄'; font-size: 10px; }
+body .podcast-file:hover { border-color: var(--lacy-accent) !important; color: var(--lacy-text-strong) !important; }

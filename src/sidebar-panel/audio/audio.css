@@ -1,0 +1,228 @@
+#audio-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+#startRecording, #stopRecording {
+    padding: 12px 20px;
+    border-radius: 20px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 150px;
+    transition: all 0.2s ease;
+}
+
+#startRecording {
+    background-color: var(--lacy-accent);
+    color: white;
+}
+
+#startRecording:hover:not([disabled]) {
+    background-color: #513c7a;
+}
+
+#stopRecording {
+    background-color: #ff4444;
+    color: white;
+}
+
+#stopRecording:hover:not([disabled]) {
+    background-color: #cc0000;
+}
+
+button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#audioPlayer {
+    width: 100%;
+    margin-top: 20px;
+    display: none;
+}
+
+/* Container Styles */
+.audio-wrapper,
+.audio-recording-wrapper {
+    background-color: var(--lacy-surface-raised);
+    padding: 20px;
+    border-radius: 5px;
+    font-family: var(--lacy-font);
+}
+
+/* Title Styles */
+.audio-title {
+    color: var(--lacy-text-strong);
+    margin-bottom: var(--lacy-space-3);
+    font-family: var(--lacy-font-display);
+}
+
+/* Description Styles */
+.audio-description {
+    color: var(--lacy-text-strong);
+    font-family: var(--lacy-font);
+    font-size: var(--lacy-text-sm);
+    margin-bottom: var(--lacy-space-4);
+}
+
+/* Section Styles */
+audio.section {
+    margin-top: 20px;
+}
+
+.audio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--lacy-font);
+}
+
+.audio-subtitle {
+    color: #D8BFD8;
+    margin: 5px;
+    margin-left: 0px;
+    font-family: var(--lacy-font-display);
+    font-size: var(--lacy-text-lg);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: var(--lacy-space-4);
+    margin-bottom: 10px;
+}
+
+.border-animated-container {
+    position: center;
+    display: inline-block;
+    padding: 1px;
+    border-radius: 12px;
+    background: linear-gradient(270deg, #553a85, var(--lacy-surface-raised), #2d2b30);
+    background-size: 600% 600%;
+    animation: borderFlow 6s linear infinite;
+    margin-bottom: var(--lacy-space-4);
+  }
+  
+  @keyframes borderFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  .content {
+    display: none;
+}
+
+.content.active {
+    display: block;
+}
+
+/* File Explorer Styles */
+.file-explorer {
+    font-family: var(--lacy-font);
+    border: 1px solid var(--lacy-border);
+    padding: 10px;
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: auto;
+    background: transparent;
+    width: 100%;
+}
+
+.file-explorer ul {
+    list-style-type: none;
+    padding-left: 20px;
+    min-width: max-content;
+    width: auto;
+}
+
+.file-explorer li {
+    cursor: pointer;
+}
+
+.file-explorer .folder::before {
+    content: "📁";
+    margin-right: var(--lacy-space-2);
+}
+
+.file-explorer .file::before {
+    content: "📄";
+    margin-right: var(--lacy-space-2);
+}
+
+.file, .folder {
+    font-size: 15px;
+    font-family: var(--lacy-font);
+    color: #d0d0d0; 
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    align-items: center; /* Ensure proper vertical alignment */
+    min-height: 30px;
+}
+
+.file:hover, .folder:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.folder {
+    font-weight: bold;
+}
+
+.selected {
+    background-color: var(--lacy-accent);
+    border-radius: 5px;
+    min-height: 30px;
+}
+.selected:hover {
+    background-color: var(--lacy-accent);
+}
+.hidden {
+    display: none;
+}
+
+.file-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap; 
+    width: auto; 
+    padding: 5px 5px;
+    cursor: pointer;
+    min-width: max-content;
+}
+
+option[disabled] {
+    color: #888;
+    font-style: italic;
+  }
+
+.file-name {
+    flex-grow: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 25px;
+}
+  
+.audio-wrapper {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;       /* enables vertical scrolling */
+  padding: var(--lacy-space-5);
+  box-sizing: border-box;
+}
+

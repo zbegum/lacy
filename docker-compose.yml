@@ -1,0 +1,20 @@
+# Lacy server on SQLite: docker compose up -d
+# Then create your first account:
+#   docker compose exec lacy node server/scripts/create-user.js \
+#     --email you@example.com --password secret --role expert --department Backend
+services:
+  lacy:
+    build: .
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    environment:
+      DB_FILE: /data/lacy.sqlite
+      AUDIO_DIR: /data/audio
+    volumes:
+      - lacy-data:/data
+    restart: unless-stopped
+
+volumes:
+  lacy-data:

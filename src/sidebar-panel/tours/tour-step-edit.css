@@ -1,0 +1,210 @@
+
+/* General reset for consistent styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styling for the tour-step container */
+#tour-step-edit-container {
+    background-color: var(--lacy-bg); /* Light background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(192, 192, 192, 0.504); /* Subtle shadow */
+    max-width: 800px; /* Max width for the content */
+    margin: 20px auto; /* Center the content */
+    font-family: var(--lacy-font-display); /* Clean font */
+    /*color: var(--lacy-border);*/
+}
+
+/* Heading Style */
+#tour-step-edit-container h2 {
+    font-size: var(--lacy-text-xl);
+    color: #3e97d2; /* Accent color for headings */
+    margin-bottom: 15px;
+}
+
+/* Tour step description style */
+#step-textarea {
+    background-color: var(--lacy-bg); /* Light background */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(192, 192, 192, 0.504); /* Subtle shadow */
+    max-width: 800px; /* Max width for the content */
+    margin: 20px auto; /* Center the content */
+    font-family: var(--lacy-font-display); /* Clean font */
+    font-size: var(--lacy-text-md);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: var(--lacy-text-muted); /* Bolder text color */
+}
+
+/* Styling for the buttons in the tour step */
+button {
+    background-color: var(--lacy-surface); /* Dark button background */
+    color: white;
+    font-size: var(--lacy-text-md);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+
+/* Styling for the links, if any, within the tour step */
+#tour-step-edit-container a {
+    color: #c1c2c3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Styling for tour navigation buttons (next, previous) */
+#tour-step-edit-container .tour-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#tour-step-edit-container .tour-nav button {
+    width: 48%;
+}
+
+#next-button {
+    margin-left: auto;
+}
+
+#tour-step-edit-container .tour-nav button:disabled {
+    background-color: var(--lacy-text-muted);
+    cursor: not-allowed;
+}
+
+/* Optional: Styling for the tour step container when it's active */
+.active {
+    display: block;
+}
+
+.exit {
+    display: wrap;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: var(--lacy-text-sm);
+    width: 20% !important;
+}
+
+.exit:hover {
+    background-color: darkred;
+}
+
+/* Style for the card container */
+.tour-card {
+    position: relative;
+    height: 50%; /* Half the width of the container */
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-color: var(--lacy-surface);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the card header */
+.tour-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.tour-card-header h2 {
+    font-size: var(--lacy-text-lg);
+    margin: 0;
+    color: #3e97d2;
+}
+
+/* Style for the toggle icon */
+.toggle-icon {
+    font-size: 1.2em;
+    color: #b1b1b1;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Style for the card content */
+.tour-card-content {
+    position: relative; /* Set the parent container to relative positioning */
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #b1b1b1;
+    color: #555;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.tour-card-lines p {
+    margin: 20px 0;
+    padding-top: 20px;
+}
+.tour-card-content p {
+    margin: 5px 0;
+    padding-top: 5px;
+}
+
+/* Style for the edit button */
+.step-edit-button {
+    position: absolute; /* Position the button relative to the parent container */
+    bottom: 0.05em; /* Distance from the bottom of the card */
+    right: 0.05em; /* Distance from the right of the card */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #929292;
+    transition: color 0.3s ease;
+    font-size: 0.5em; /* Reduce the size of the button */
+}
+
+.step-edit-button:hover {
+    color: var(--lacy-text-strong);
+}
+
+.step-edit-button i {
+    font-size: 2em; /* Adjust the size of the Font Awesome icon */
+}
+
+/* Tour Edit List Styles */
+#tour-steps-list-container {
+    background-color: var(--lacy-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(192, 192, 192, 0.504);
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: var(--lacy-font-display);
+}
+
+/* Add these new styles */
+.tour-card-explanation,
+.tour-card-lines {
+    color: var(--lacy-text-muted);
+    font-size: var(--lacy-text-md);
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Active state for tour cards */
+.tour-card.active {
+    border: 1px solid #3e97d2;
+}
+
+

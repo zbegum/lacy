@@ -1,0 +1,31 @@
+{
+  "name": "lacy-server",
+  "version": "2.1.0",
+  "private": true,
+  "description": "API server for Lacy: tours, quizzes, podcasts and the expert dashboard.",
+  "license": "MIT",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "migrate": "knex --knexfile knexfile.js migrate:latest",
+    "create-user": "node scripts/create-user.js",
+    "test": "node --test",
+    "users": "node scripts/manage-users.js",
+    "backup": "node scripts/backup.js"
+  },
+  "dependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.68.0",
+    "@google-cloud/speech": "^8.1.0",
+    "@google/generative-ai": "^0.24.1",
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "knex": "^3.3.0"
+  }
+}

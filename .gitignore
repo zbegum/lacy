@@ -1,0 +1,10 @@
+out
+dist
+node_modules
+.vscode-test/
+*.vsix
+
+# Local configuration and generated data
+.env
+server/data/
+dashboard/build/

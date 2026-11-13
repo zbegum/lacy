@@ -1,0 +1,97 @@
+/*
+ * Lacy's design tokens for the VS Code panel.
+ *
+ * Colours come from the user's own theme where a sensible variable exists, with
+ * Lacy's dark palette as the fallback, so the panel belongs in a light theme as
+ * much as a dark one. The purple accent stays fixed: it is Lacy's, not the
+ * theme's.
+ *
+ * Fonts are bundled with the extension rather than fetched from Google, so the
+ * panel looks the same offline and makes no third-party requests.
+ */
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../../resources/fonts/poppins-400-latin.woff2') format('woff2'),
+         url('../../resources/fonts/poppins-400-latin-ext.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../../resources/fonts/poppins-500-latin.woff2') format('woff2'),
+         url('../../resources/fonts/poppins-500-latin-ext.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../../resources/fonts/poppins-600-latin.woff2') format('woff2'),
+         url('../../resources/fonts/poppins-600-latin-ext.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Aldrich';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../../resources/fonts/aldrich-400-latin.woff2') format('woff2');
+}
+
+:root {
+    /* Surfaces and text follow the editor's theme. */
+    --lacy-bg: var(--vscode-sideBar-background, #1e1e1e);
+    --lacy-surface: var(--vscode-editorWidget-background, #252526);
+    --lacy-surface-raised: var(--vscode-input-background, #1f1f1f);
+    --lacy-text: var(--vscode-foreground, #d4d4d4);
+    --lacy-text-strong: var(--vscode-editor-foreground, #ffffff);
+    --lacy-text-muted: var(--vscode-descriptionForeground, #cccccc);
+    --lacy-border: var(--vscode-panel-border, #3e3e42);
+    --lacy-border-subtle: var(--vscode-widget-border, #4e4e5d);
+
+    /* Lacy's own colours, the same in every theme. */
+    --lacy-accent: #726bda;
+    --lacy-accent-soft: #a78bfa;
+    --lacy-on-accent: #ffffff;
+    --lacy-success: #10b981;
+    --lacy-danger: #e57373;
+    --lacy-warning: #e5a50a;
+
+    /* Type: Aldrich for headings, Poppins for everything else. */
+    --lacy-font: 'Poppins', var(--vscode-font-family, system-ui, sans-serif);
+    --lacy-font-display: 'Aldrich', var(--lacy-font);
+
+    --lacy-text-xs: 0.75rem;
+    --lacy-text-sm: 0.85rem;
+    --lacy-text-md: 1rem;
+    --lacy-text-lg: 1.2rem;
+    --lacy-text-xl: 1.5rem;
+    --lacy-text-2xl: 2rem;
+
+    /* Spacing: a 4px scale, so gaps line up instead of nearly lining up. */
+    --lacy-space-1: 0.25rem;
+    --lacy-space-2: 0.5rem;
+    --lacy-space-3: 0.75rem;
+    --lacy-space-4: 1rem;
+    --lacy-space-5: 1.5rem;
+    --lacy-space-6: 2rem;
+
+    --lacy-radius: 8px;
+    --lacy-radius-sm: 4px;
+}
+
+body {
+    font-family: var(--lacy-font);
+    font-size: var(--lacy-text-md);
+    color: var(--lacy-text);
+    background-color: var(--lacy-bg);
+}
+
+h1, h2, h3, .section-heading, .tour-title {
+    font-family: var(--lacy-font-display);
+    color: var(--lacy-text-strong);
+}

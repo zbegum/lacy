@@ -1,0 +1,88 @@
+/*
+ * The dashboard uses the same tokens as the VS Code panel, so the two halves of
+ * Lacy look like one product. It runs in a browser rather than in the editor, so
+ * the palette is fixed instead of following a theme.
+ *
+ * Fonts are bundled, not fetched from Google.
+ */
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./fonts/poppins-400-latin.woff2') format('woff2'),
+         url('./fonts/poppins-400-latin-ext.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('./fonts/poppins-500-latin.woff2') format('woff2'),
+         url('./fonts/poppins-500-latin-ext.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('./fonts/poppins-600-latin.woff2') format('woff2'),
+         url('./fonts/poppins-600-latin-ext.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Aldrich';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./fonts/aldrich-400-latin.woff2') format('woff2');
+}
+
+:root {
+    --lacy-bg: #1e1e1e;
+    --lacy-surface: #252526;
+    --lacy-surface-raised: #1f1f1f;
+    --lacy-text: #d4d4d4;
+    --lacy-text-strong: #ffffff;
+    --lacy-text-muted: #cccccc;
+    --lacy-border: #3e3e42;
+    --lacy-border-subtle: #4e4e5d;
+
+    --lacy-accent: #726bda;
+    --lacy-accent-soft: #a78bfa;
+    --lacy-on-accent: #ffffff;
+    --lacy-success: #10b981;
+    --lacy-danger: #e57373;
+    --lacy-warning: #e5a50a;
+
+    --lacy-font: 'Poppins', system-ui, sans-serif;
+    --lacy-font-display: 'Aldrich', var(--lacy-font);
+
+    --lacy-text-xs: 0.75rem;
+    --lacy-text-sm: 0.85rem;
+    --lacy-text-md: 1rem;
+    --lacy-text-lg: 1.2rem;
+    --lacy-text-xl: 1.5rem;
+    --lacy-text-2xl: 2rem;
+
+    --lacy-space-1: 0.25rem;
+    --lacy-space-2: 0.5rem;
+    --lacy-space-3: 0.75rem;
+    --lacy-space-4: 1rem;
+    --lacy-space-5: 1.5rem;
+    --lacy-space-6: 2rem;
+
+    --lacy-radius: 8px;
+    --lacy-radius-sm: 4px;
+}
+
+body {
+    font-family: var(--lacy-font);
+    color: var(--lacy-text);
+    background-color: var(--lacy-bg);
+}
+
+h1, h2, h3, .section-title, .section-heading {
+    font-family: var(--lacy-font-display);
+    color: var(--lacy-text-strong);
+}

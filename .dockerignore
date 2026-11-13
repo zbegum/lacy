@@ -1,0 +1,17 @@
+# Never copy host builds into the image: native modules (better-sqlite3) are
+# compiled for the host platform and would break inside the container.
+**/node_modules
+**/build
+**/out
+**/dist
+**/.vscode-test
+
+.git
+.gitignore
+.env
+*.vsix
+server/data
+**/*.sqlite
+**/*.sqlite-wal
+**/*.sqlite-shm
+.DS_Store

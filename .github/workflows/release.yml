@@ -1,0 +1,58 @@
+name: Release
+
+# Tag a release to publish it:  git tag v2.0.0 && git push origin v2.0.0
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write   # create the release
+  packages: write   # push the server image
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+      - run: npm ci
+        working-directory: server
+      - run: npm ci
+        working-directory: dashboard
+      - run: npm run build
+        working-directory: dashboard
+
+      - name: Test before releasing
+        run: npm test
+
+      - name: Package the extension
+        run: npx --yes @vscode/vsce package --out lacy-${{ github.ref_name }}.vsix
+
+      - name: Publish the server image
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          IMAGE=ghcr.io/${{ github.repository }}
+          VERSION=${GITHUB_REF_NAME#v}
+          docker build -t "$IMAGE:$VERSION" -t "$IMAGE:latest" .
+          docker push "$IMAGE:$VERSION"
+          docker push "$IMAGE:latest"
+
+      - name: Create the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: lacy-${{ github.ref_name }}.vsix
+          generate_release_notes: true
+          body: |
+            Install the extension: download the `.vsix` below, then in VS Code
+            **Extensions ▸ ⋯ ▸ Install from VSIX**.
+
+            Run the server:
+            ```bash
+            docker run -d --name lacy -p 4000:4000 -v lacy-data:/data \
+              -e GEMINI_API_KEY=your-key ghcr.io/${{ github.repository }}:${GITHUB_REF_NAME#v}
+            ```
+            See INSTALL.md for the full instructions.

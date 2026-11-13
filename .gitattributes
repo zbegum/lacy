@@ -1,0 +1,5 @@
+# Keep line endings consistent so the repo works the same on Windows and macOS.
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.mp3 binary
