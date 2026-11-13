@@ -6,8 +6,31 @@ linked to real files and line ranges, and learners walk through it inside the ed
 — with quizzes, questions back to the expert, an optional podcast version, and a
 dashboard showing how people are getting on.
 
-Lacy started as the research prototype behind a pilot study at a software company.
-This repository is the version being made deployable outside that environment.
+## About this release
+
+Lacy is a research tool. It was developed and evaluated in a pilot study inside a
+software company, described in the publication below. This repository is a public
+version of it, released for **personal use and research**: you can run your own
+server, try it on your own projects, and build on it in studies of your own. It is
+not a supported product, and it has none of the company's internal setup. (The MIT
+License itself places no limit on use; this says what the release is meant for.)
+
+- **Publication:** [LACY: Simulating Expert Mentoring for Software Onboarding with
+  Code Tours](https://doi.org/10.1145/3803437.3805218), FSE Companion '26 (34th ACM
+  International Conference on the Foundations of Software Engineering)
+- **Replication package:** the study's materials and the research version of Lacy are on
+  [figshare](https://figshare.com/s/6a261d3382b116d8494f).
+- **Citing Lacy:** see [Citation](#citation) below.
+
+## Documentation
+
+| Document | What it covers |
+|---|---|
+| [INSTALL.md](INSTALL.md) | Installing Lacy: one `docker run` for the server, the `.vsix` for VS Code |
+| [User manual](docs/user-manual.md) | Using Lacy: taking and writing tours, quizzes, voice tours, podcasts, the dashboard |
+| This README | Running and developing it: configuration, API keys, accounts |
+| [CHANGELOG.md](CHANGELOG.md) | What changed in each version |
+| [SECURITY.md](SECURITY.md) | Reporting a security problem |
 
 ## What's in here
 
@@ -339,11 +362,37 @@ POST /api/change-password   { "current_password": "...", "new_password": "..." }
   a single team or a group that is happy to see each other's progress.
 - Backing up means the database file **and** `AUDIO_DIR`.
 
-## Credits
+## Citation
 
-Lacy was built by **Architexts**. The research version it grew out of was released as
-a replication package on [figshare](https://figshare.com/s/6a261d3382b116d8494f);
-`CHANGELOG.md` lists what changed since.
+If you use Lacy in your research, please cite the paper (GitHub's **Cite this
+repository** button gives the same entry):
+
+> Zeynep Begüm Kara, Aytekin İsmail, Ece Ateş, İzgi Nur Tamcı, Zehra İyigün, Selin
+> Şirin Aslangül, Ömercan Devran, Baykal Mehmet Uçar and Eray Tüzün. 2026. **LACY:
+> Simulating Expert Mentoring for Software Onboarding with Code Tours.** In
+> *Proceedings of the 34th ACM International Conference on the Foundations of Software
+> Engineering (FSE Companion '26)*, Montreal, Canada. ACM, 450–460.
+> https://doi.org/10.1145/3803437.3805218
+
+```bibtex
+@inproceedings{kara2026lacy,
+  title     = {{LACY}: Simulating Expert Mentoring for Software Onboarding with Code Tours},
+  author    = {Kara, Zeynep Begüm and İsmail, Aytekin and Ateş, Ece and Tamcı, İzgi Nur
+               and İyigün, Zehra and Aslangül, Selin Şirin and Devran, Ömercan
+               and Uçar, Baykal Mehmet and Tüzün, Eray},
+  booktitle = {Proceedings of the 34th ACM International Conference on the Foundations
+               of Software Engineering},
+  series    = {FSE Companion '26},
+  pages     = {450--460},
+  year      = {2026},
+  address   = {Montreal, QC, Canada},
+  publisher = {ACM},
+  doi       = {10.1145/3803437.3805218}
+}
+```
+
+Lacy was built by **Architexts**. `CHANGELOG.md` lists what changed since the
+research version.
 
 ## License
 

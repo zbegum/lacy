@@ -1,0 +1,55 @@
+cff-version: 1.2.0
+message: "If you use Lacy in your research, please cite the paper below."
+title: "Lacy"
+type: software
+version: 2.1.0
+date-released: 2026-11-13
+license: MIT
+repository-code: "https://github.com/zbegum/lacy"
+authors:
+  - name: Architexts
+  - family-names: Kara
+    given-names: Zeynep Begüm
+    orcid: "https://orcid.org/0009-0003-0450-1806"
+preferred-citation:
+  type: conference-paper
+  title: "LACY: Simulating Expert Mentoring for Software Onboarding with Code Tours"
+  authors:
+    - family-names: Kara
+      given-names: Zeynep Begüm
+      orcid: "https://orcid.org/0009-0003-0450-1806"
+    - family-names: İsmail
+      given-names: Aytekin
+      orcid: "https://orcid.org/0009-0000-9490-7866"
+    - family-names: Ateş
+      given-names: Ece
+      orcid: "https://orcid.org/0009-0002-8353-7972"
+    - family-names: Tamcı
+      given-names: İzgi Nur
+      orcid: "https://orcid.org/0009-0009-6781-4053"
+    - family-names: İyigün
+      given-names: Zehra
+      orcid: "https://orcid.org/0009-0003-9179-7077"
+    - family-names: Aslangül
+      given-names: Selin Şirin
+      orcid: "https://orcid.org/0009-0003-5498-9715"
+    - family-names: Devran
+      given-names: Ömercan
+      orcid: "https://orcid.org/0009-0001-5438-0040"
+    - family-names: Uçar
+      given-names: Baykal Mehmet
+      orcid: "https://orcid.org/0009-0004-7158-2703"
+    - family-names: Tüzün
+      given-names: Eray
+      orcid: "https://orcid.org/0000-0002-5550-7816"
+  collection-title: "Proceedings of the 34th ACM International Conference on the Foundations of Software Engineering"
+  conference:
+    name: "FSE Companion '26"
+    city: Montreal
+    country: CA
+  publisher:
+    name: ACM
+  start: 450
+  end: 460
+  year: 2026
+  doi: "10.1145/3803437.3805218"
